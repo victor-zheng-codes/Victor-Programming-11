@@ -19,12 +19,12 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="148.0" layoutY="48.0" text="Save and load different friends!">
+                        <Label layoutX="127.0" layoutY="48.0" text="Load different friends!">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Label layoutX="43.0" layoutY="80.0" text="Either create a new list, or retrieve one from file. Ensure that you have built a friend before saving" />
+                        <Label layoutX="108.0" layoutY="80.0" text="Either create a new list, or retrieve one from file." />
                         <TextField fx:id="newListName" layoutX="161.0" layoutY="134.0" promptText="Name" />
                         <Button layoutX="32.0" layoutY="132.0" mnemonicParsing="false" onAction="#createNewList" text="Create new list:">
                            <font>
@@ -56,7 +56,7 @@
                      </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Build a Friend">
+                <Tab text="Build a New Friend">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -99,7 +99,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Your Friends">
+                <Tab text="View Your Friends">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>

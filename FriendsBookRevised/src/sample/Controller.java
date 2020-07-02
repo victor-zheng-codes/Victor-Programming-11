@@ -116,6 +116,7 @@ public class Controller {
 
     }
 
+
     public void createNewList(ActionEvent actionEvent) throws IOException {
         viewFriend.getItems().clear();
 
@@ -145,6 +146,7 @@ public class Controller {
             bwFriends.write((String) newItem + "\r");
             bwFriends.close();
             //errorLabel.setText("Saved!");
+            errorLabel.setText("");
         }
     }
 
@@ -157,41 +159,12 @@ public class Controller {
         Object listName = availableLists.getSelectionModel().getSelectedItem();
         System.out.println("saving to file: " + listName);
 
-        /*
-        if(viewFriend.getItems().isEmpty()){
-            System.out.println("viewFriend is empty");
-            FileWriter newFile = new FileWriter(listName+".txt");
-            BufferedWriter bw = new BufferedWriter(newFile);
-            bw.close();
-        }
-
-        else{
-
-         */
-
         for(Friend i : friendList) {
             System.out.println("writing this: " + i);
             i.writeToFile(listName + ".txt");
         }
         viewFriend.getItems().clear();
-        //saveLabel.setText("");
-        /*
 
-        if(compareLists(listName.toString())){
-            System.out.println("CompareList New Items are not duplicated while saving");
-        }
-        else{
-            System.out.println("Writing to friendLists.txt");
-            FileWriter fwFriends = new FileWriter("friendLists.txt", true);
-            BufferedWriter bwFriends = new BufferedWriter(fwFriends);
-            bwFriends.write((String) listName + "\r");
-            bwFriends.close();
-            errorLabel.setText("");
-            saveLabel.setText("Saved!");
-        }
-        saveToFileButton.setDisable(true);
-
-         */
         saveToFileButton.setVisible(false);
         buildFriendButton.setDisable(true);
         buildFriendButton.setVisible(true);
@@ -285,6 +258,9 @@ public class Controller {
         System.out.println(success1);
     }
 
+    //Requires: String
+    //Modifies: File friendLists.txt
+    //Effects: Checks if the newListName is a duplicate in the File
     public boolean compareLists(String newListName) throws IOException{
         FileReader fr = new FileReader("friendLists.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -299,8 +275,9 @@ public class Controller {
         return false;
 
     }
-
-    //Made my own method that reads and copies the file
+    //Requires: nothing
+    //Modifies: File friendLists and File tempFile
+    //Effects: reads tempFile.txt and copies it to the friendLists.txt.
     public void copyFile() throws IOException {
         FileWriter fileWrite = new FileWriter("friendLists.txt");
         BufferedWriter bufferWrite = new BufferedWriter(fileWrite);

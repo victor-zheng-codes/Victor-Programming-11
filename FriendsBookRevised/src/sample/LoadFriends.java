@@ -19,6 +19,9 @@ public class LoadFriends {
     private static BufferedReader br;
     private static ArrayList<Friend> friends = new ArrayList<>();
 
+    //Requires: String
+    //Modifies: this, File fileName
+    //Effects: Reads the elements in the file we are looking for, returns the ArrayList of each element place
     public static ArrayList viewFriends(String fileName) throws IOException{
         friends.clear();
         System.out.println("Creating a friend");
@@ -41,25 +44,31 @@ public class LoadFriends {
         //br.close();
         return friends;
     }
-    private static void parseFriend(String string){
+
+    //Requires: String element
+    //Modifies: this
+    //Effects: separates the name, age, grade, skills, and traits
+    private static void parseFriend(String element){
         int startIndex = 0;
         int endIndex = 0;
         int locationCounter = 0;
 
-        System.out.println("String is: " + string);
+        System.out.println("Element is: " + element);
+        //introduce ArrayList to store location of comma
         ArrayList<Integer> location = new ArrayList<>();
+        //introduce ArrayList to store the name, age, grade, skills and traits
         ArrayList<String> conversionList = new ArrayList<>();
 
-        //adding each comma into the list
-        for(int i = 0; i < string.length(); i++){
-            if(string.substring(i,i+1).equals(",")){
+        //adding each comma location into the list
+        for(int i = 0; i < element.length(); i++){
+            if(element.substring(i,i+1).equals(",")){
                 System.out.println("Adding: " + i);
                 location.add(i);
             }
         }
-        for(int i = 0; i < string.length(); i++){
+        for(int i = 0; i < element.length(); i++){
             if(i == location.get(0)){
-                conversionList.add(string.substring(0, i));
+                conversionList.add(element.substring(0, i));
             }
             if(locationCounter > 3) {
                 System.out.println("Breaking from loop");
@@ -67,15 +76,14 @@ public class LoadFriends {
             }
             //System.out.println("i is: " + i);
 
-            if (string.substring(i, i + 1).equals(",")) {
+            if (element.substring(i, i + 1).equals(",")) {
                 System.out.println("locationCounter: " + locationCounter + " location getting: " + location.get(locationCounter));
                 System.out.println("Found Comma");
 
                 startIndex = location.get(locationCounter);
                 endIndex = location.get(locationCounter + 1);
-                //age = Integer.parseInt(string.substring(i + counter, pos + 3));
-                //age = Integer.parseInt(string.substring(startIndex, endIndex));
-                conversionList.add(string.substring(startIndex + 1, endIndex));
+
+                conversionList.add(element.substring(startIndex + 1, endIndex));
 
                 locationCounter++;
             }

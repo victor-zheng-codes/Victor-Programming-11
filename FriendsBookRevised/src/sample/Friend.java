@@ -18,7 +18,9 @@ public class Friend {
         this.skills = skills;
         this.traits = traits;
     }
-
+    //Requires: String fileName that we are writing to
+    //Modifies: fileName, this
+    //Effects: writes the name, age, grade, skills, and traits of this friend to the specified file
     public void writeToFile(String fileName) throws IOException{
         System.out.println("writing to this file:" + fileName);
         FileWriter fileWrite = new FileWriter(fileName, true);
@@ -35,21 +37,6 @@ public class Friend {
 
     }
 
-    public void writeFromBeginning(String fileName) throws IOException{
-        System.out.println("writing to this file:" + fileName);
-        FileWriter fileWrite = new FileWriter(fileName);
-        BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
-        bufferWrite.write(name + ",\r");
-        bufferWrite.write(Integer.toString(age) + ",\r");
-        bufferWrite.write(Integer.toString(grade) + ",\r");
-
-        bufferWrite.write(skills + ",\r");
-        bufferWrite.write(traits + ",\r");
-        bufferWrite.write(";\r");
-
-        bufferWrite.close();
-
-    }
     //Getter and Setters
     public String getName() {
         return name;
