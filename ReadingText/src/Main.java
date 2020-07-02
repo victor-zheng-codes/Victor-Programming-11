@@ -26,6 +26,7 @@ public class Main {
                 indexBeginning = line.indexOf(finding, indexBeginning + 1);
                 counter ++;
 
+
                 //System.out.println(line.substring(index,line.length()));
             }
         }
@@ -51,6 +52,7 @@ public class Main {
         }
 
 
+        /*
         //Write out the arrayList into a new txt file. (not sure if this is required in the criteria)
         FileWriter fw = new FileWriter("out.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -59,6 +61,9 @@ public class Main {
             bw.write(i + "\r");
         }
         bw.close();
+
+         */
+
 
         //run the method that finds the text. Input is what we are looking for.
         findText("machine");
