@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <TabPane prefHeight="410.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Build a Friend">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="63.0" prefHeight="224.0" prefWidth="80.0" spacing="20.0">
+                           <children>
+                              <Label text="Name:" />
+                              <Label layoutX="10.0" layoutY="10.0" text="Age:" />
+                              <Label layoutX="10.0" layoutY="28.0" text="Grade:" />
+                              <Label layoutX="10.0" layoutY="45.0" text="Skills:" />
+                              <Label layoutX="10.0" layoutY="63.0" text="Traits:" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_RIGHT" layoutX="110.0" layoutY="64.0" prefHeight="222.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="nameInput" promptText="Justin Trudeau" />
+                              <TextField fx:id="ageInput" layoutX="10.0" layoutY="10.0" promptText="16" />
+                              <TextField fx:id="gradeInput" layoutX="10.0" layoutY="36.0" promptText="10" />
+                              <TextField fx:id="skillsInput" layoutX="10.0" layoutY="61.0" promptText="Writing" />
+                              <TextField fx:id="traitsInput" layoutX="10.0" layoutY="87.0" promptText="Tall" />
+                           </children>
+                        </VBox>
+                        <Button layoutX="383.0" layoutY="166.0" mnemonicParsing="false" onAction="#buildFriend" text="Build Your Friend!">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="168.0" layoutY="33.0" text="Create and Delete friends! ">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="65.0" layoutY="286.0" text="Please ensure that you have inputed an integer for the age and grade of you friend." textFill="#da3030" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Your Friends">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="viewFriend" layoutY="1.0" onMouseClicked="#displayFriend" prefHeight="378.0" prefWidth="238.0" />
+                        <Label layoutX="303.0" layoutY="14.0" prefHeight="31.0" prefWidth="227.0" text="View Friend Information">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" layoutX="236.0" layoutY="73.0" prefHeight="298.0" prefWidth="366.0" spacing="20.0">
+                           <children>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="298.0" prefWidth="69.0" spacing="10.0">
+                                 <children>
+                                    <Label text="Name:" />
+                                    <Label layoutX="46.0" layoutY="135.0" text="Age:" />
+                                    <Label layoutX="46.0" layoutY="144.0" text="Grade:" />
+                                    <Label text="Skills:" />
+                                    <Label layoutX="46.0" layoutY="160.0" text="Traits:" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="298.0" prefWidth="163.0" spacing="10.0">
+                                 <children>
+                                    <Label fx:id="outputName" />
+                                    <Label fx:id="outputAge" layoutX="46.0" layoutY="135.0" />
+                                    <Label fx:id="outputGrade" layoutX="46.0" layoutY="144.0" />
+                                    <Label fx:id="outputSkills" layoutX="46.0" layoutY="152.0" />
+                                    <Label fx:id="outputTraits" layoutX="46.0" layoutY="160.0" />
+                                 </children>
+                              </VBox>
+                              <Button fx:id="buttonRemoveFriend" disable="true" mnemonicParsing="false" onAction="#removeFriend" prefHeight="45.0" prefWidth="150.0" text="Remove Friend" visible="false" />
+                           </children>
+                        </HBox>
+                        <Label layoutX="249.0" layoutY="64.0" text="Your friend's Information will apear after clicking on their name." />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>
