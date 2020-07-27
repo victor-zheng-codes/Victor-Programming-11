@@ -1,0 +1,5 @@
+Project was created for Computer Programming 11
+
+I have used Junit 4.12 because the Junit Snapshot did not work for some reason.
+I suspect it might be the fact that I am using an earlier verison of Java JDK.
+
