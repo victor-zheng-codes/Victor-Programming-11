@@ -2,10 +2,15 @@ package sample;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.Buffer;
@@ -209,6 +214,8 @@ public class Controller {
             //plantsList.getItems().add(line);
             harvestScheduleList.getItems().add(line);
             growScheduleList.getItems().add(line);
+            harvestAlerts.getItems().add(line);
+            growAlerts.getItems().add(line);
         }
         br.close();
 
@@ -333,4 +340,23 @@ public class Controller {
         }
     }
 
+
+    //Requires: Nothing
+    //Modifies: Nothing
+    //Effects: Plays the video and audio
+
+    public void playVideo(MouseEvent mouseEvent) {
+        String path = "C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\Garden_Video.mp4";
+        Media media = new Media(new File(path).toURI().toString());
+
+        // Create the player and set to play automatically.
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+        // Create the view and add it to the Scene.
+        MediaView mediaView = new MediaView(mediaPlayer);
+        Group newRoot = new Group();
+        newRoot.getChildren().add(mediaView);
+        mediaPlayer.play();
+    }
 }
