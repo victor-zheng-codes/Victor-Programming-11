@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
@@ -53,8 +52,10 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Label layoutX="27.0" layoutY="14.0" text="How to use this application" />
-                  <MediaView fx:id="media" fitHeight="200.0" fitWidth="200.0" layoutX="59.0" layoutY="94.0" />
-                  <Button layoutX="99.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#playVideo" text="Play Video" />
+                  <Button fx:id="mediaView" layoutX="35.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#playVideo" prefHeight="56.0" prefWidth="131.0" text="Play Video">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children></AnchorPane>
       </content>
     </Tab>

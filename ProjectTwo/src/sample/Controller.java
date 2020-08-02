@@ -2,21 +2,18 @@ package sample;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Controller {
     public ListView<Plant> plantsList = new ListView<>();
@@ -44,6 +41,7 @@ public class Controller {
     public Button removePlantGrowButton;
     public Button removePlantHarvestButton;
     public Button loadFromFileButton;
+    public Button mediaView;
 
     /*
     public void loadGrowList() throws IOException {
@@ -344,19 +342,27 @@ public class Controller {
     //Requires: Nothing
     //Modifies: Nothing
     //Effects: Plays the video and audio
-
     public void playVideo(MouseEvent mouseEvent) {
-        String path = "C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\Garden_Video.mp4";
-        Media media = new Media(new File(path).toURI().toString());
+        Stage newStage = new Stage();
+        // Create the media source.
+        //String source = getParameters().getRaw().get(0);
+        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwoVideoDemonstration\\src\\sample\\Garden_Video.mp4");
+        Media m = new Media(f.toURI().toString());
 
         // Create the player and set to play automatically.
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(m);
         mediaPlayer.setAutoPlay(true);
 
         // Create the view and add it to the Scene.
         MediaView mediaView = new MediaView(mediaPlayer);
-        Group newRoot = new Group();
-        newRoot.getChildren().add(mediaView);
+
+        //stage.setScene(new Scene(root, 680, 400));
+        VBox mediaArea = new VBox(mediaView);
+        Scene scene = new Scene(mediaArea, 640, 500);
+
+        newStage.setScene(scene);
+        newStage.setTitle("Demonstration Video");
+        newStage.show();
         mediaPlayer.play();
     }
 }
