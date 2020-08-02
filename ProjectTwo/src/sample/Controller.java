@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 public class Controller {
     public ListView<Plant> plantsList = new ListView<>();
-    public TextArea notesOnPlant;
+    public TextField notesOnPlant;
     public TextField plantName;
     public DatePicker harvestEstimate;
     public DatePicker startDate;
@@ -42,27 +42,8 @@ public class Controller {
     public Button removePlantHarvestButton;
     public Button loadFromFileButton;
     public Button mediaView;
+    public Label howToUseLabel;
 
-    /*
-    public void loadGrowList() throws IOException {
-        ObservableList<String> plantList = growScheduleList.getItems();
-        Object listName = growScheduleList.getSelectionModel().getSelectedItem();
-
-        //Clear the file first
-        FileWriter fileWrite = new FileWriter(listName + ".txt", false);
-        BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
-        bufferWrite.write("");
-        bufferWrite.close();
-
-        System.out.println("saving to file: " + listName);
-
-        for (Plant i : plantList) {
-            System.out.println("writing this: " + i);
-            i.writeToFile(listName + ".txt");
-        }
-    }
-
-     */
     //Requires: Nothing
     //Modifies: nothing
     //Effects: clears the text fields that are for creating a new plant
@@ -113,17 +94,21 @@ public class Controller {
         harvestAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getHarvestDate());
         //Clear the create fields for the next plant
         clearCreate();
-
         ObservableList<Plant> plantListings = plantsList.getItems();
 
         for(Plant i : plantListings) {
             System.out.println("writing this: " + i);
             i.writeToFile(newPlant + ".txt", false);
-            i.writeToList();
+            i.writeToGrowList();
+            i.writeToHarvestList();
         }
     }
-
+    //Requires: Nothing
+    //Modifies: Nothing
+    //Effects: read each file and write out to the list
     public void viewGrowList(MouseEvent mouseEvent) throws IOException{
+        //Clear the labels so it starts off on a blank slate
+        clearGrow();
         String selected = growScheduleList.getSelectionModel().getSelectedItem();
         FileReader fr = new FileReader(selected + ".txt");
         BufferedReader br = new BufferedReader(fr);
@@ -143,30 +128,25 @@ public class Controller {
             if(counter == 2){
                 growDateShow.setText(line);
             }
-            //The first line for notes
+            //Notes Line
             if(counter == 4) {
-                notes = line;
-            }
-            //Only works if not empty
-            if(counter == 5 && !line.equals(";")){
-                System.out.println("Counter is 5");
-                notesShow.setText(notes + "\r" + line);
-                break;
-            }
-            else if(line.equals(";")){
-                notesShow.setText(notes);
+                notesShow.setText(line);
             }
         }
         br.close();
     }
 
+    //Requires: Nothing
+    //Modifies: Nothing
+    //Effects: read each file and write out to the list
     public void viewHarvestList(MouseEvent mouseEvent) throws IOException{
+        //Clear the labels so it starts off on a blank slate
+        clearHarvest();
         String selected = harvestScheduleList.getSelectionModel().getSelectedItem();
         FileReader fr = new FileReader(selected + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
-        String notes = "";
 
         while ((line = br.readLine()) != null) {
             counter ++;
@@ -180,47 +160,48 @@ public class Controller {
             if(counter == 3){
                 harvestDateShow.setText(line);
             }
-            //The first line for notes
+            //The notes line
             if(counter == 4) {
-                notes = line;
-            }
-            //Only works if not empty
-            if(counter == 5 && !line.equals(";")){
-                System.out.println("Counter is 5");
-                notesShowHarvest.setText(notes + "\r" + line);
-                break;
-            }
-            else if(line.equals(";")){
-                notesShowHarvest.setText(notes);
+                notesShowHarvest.setText(line);
             }
         }
         br.close();
 
     }
-
+    //Requires: Nothing
+    //Modifies: Nothing
+    //Effects: loads the harvestList and growList
     public void loadFromFile(MouseEvent mouseEvent) throws IOException {
         System.out.println("Loading list");
         loadFromFileButton.setDisable(true);
         //plantsList.getItems().clear();
 
         System.out.println("updating new load");
-        FileReader fr = new FileReader("plantList.txt");
+        FileReader fr = new FileReader("growList.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         while ((line = br.readLine()) != null) {
             System.out.println("line is: " + line);
-            //plantsList.getItems().add(line);
-            harvestScheduleList.getItems().add(line);
             growScheduleList.getItems().add(line);
-            harvestAlerts.getItems().add(line);
             growAlerts.getItems().add(line);
         }
         br.close();
 
+        FileReader harvestfr = new FileReader("harvestList.txt");
+        BufferedReader harvestbr = new BufferedReader(harvestfr);
+        String harvestLine;
+        while ((harvestLine = harvestbr.readLine()) != null) {
+            System.out.println("harvestList line is: " + harvestLine);
+            harvestScheduleList.getItems().add(harvestLine);
+            harvestAlerts.getItems().add(harvestLine);
+        }
+        br.close();
     }
-
+    //Requires: Nothing
+    //Modifies: File growList and File tempFile
+    //Effects: removes a  plant from the growList, by writing to a tempFile and then copying the file over to the growList
     public void removePlantGrow(MouseEvent mouseEvent) throws IOException{
-        File inputFile = new File ("plantList.txt");
+        File inputFile = new File ("growList.txt");
         File tempFile = new File ("tempFile.txt");
 
         Object locateName = growScheduleList.getSelectionModel().getSelectedItem();
@@ -257,13 +238,16 @@ public class Controller {
         }
         br.close();
         bufferWrite.close();
-        copyFile();
+        copyFile("growList");
         deleteFile(locateName.toString());
 
     }
 
+    //Requires: Nothing
+    //Modifies: File harvestList and File tempFile
+    //Effects: removes a  plant from the harvestList, by writing to a tempFile and then copying the file over to the harvestList
     public void removePlantHarvest(MouseEvent mouseEvent) throws IOException{
-        File inputFile = new File ("plantList.txt");
+        File inputFile = new File ("harvestList.txt");
         File tempFile = new File ("tempFile.txt");
 
         Object locateName = harvestScheduleList.getSelectionModel().getSelectedItem();
@@ -300,16 +284,16 @@ public class Controller {
         }
         br.close();
         bufferWrite.close();
-        copyFile();
+        copyFile("harvestList");
         deleteFile(locateName.toString());
 
     }
 
     //Requires: nothing
-    //Modifies: File plantList and File tempFile
-    //Effects: reads tempFile.txt and copies it to the plantList.txt.
-    public void copyFile() throws IOException {
-        FileWriter fileWrite = new FileWriter("plantList.txt");
+    //Modifies: File input file and File tempFile
+    //Effects: reads tempFile.txt and copies it to the inputFile.txt.
+    public void copyFile(String inputFile) throws IOException {
+        FileWriter fileWrite = new FileWriter(inputFile + ".txt");
         BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
 
         FileReader frTemp = new FileReader("tempFile.txt");
@@ -343,6 +327,7 @@ public class Controller {
     //Modifies: Nothing
     //Effects: Plays the video and audio
     public void playVideo(MouseEvent mouseEvent) {
+        howToUseLabel.setText("Video has opened in another stage");
         Stage newStage = new Stage();
         // Create the media source.
         //String source = getParameters().getRaw().get(0);
