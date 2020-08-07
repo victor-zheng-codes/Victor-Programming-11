@@ -43,6 +43,7 @@ public class Controller {
     public Button loadFromFileButton;
     public Button mediaView;
     public Label howToUseLabel;
+    public ListView quickCreateListView;
 
     //Requires: Nothing
     //Modifies: nothing
@@ -72,11 +73,14 @@ public class Controller {
         notesShowHarvest.setText("");
     }
 
-
     //Requires: nothing
     //Modifies: this
     //Effects: creates a new plant and saves it to file
     public void createPlant(ActionEvent actionEvent) throws IOException{
+        quickCreateListView.setDisable(false);
+        Object locateName = quickCreateListView.getSelectionModel().getSelectedItem();
+        quickCreateListView.getItems().remove(locateName);
+
         String name = plantName.getText();
         LocalDate plantStartDate = startDate.getValue();
         LocalDate harvestDate = harvestEstimate.getValue();
@@ -122,15 +126,18 @@ public class Controller {
             System.out.println("line is: " + line);
 
             if(counter == 1){
-                plantNameShow.setText(line);
+                String insert = line.substring(0,line.length()-1);
+                plantNameShow.setText(insert);
             }
             //Find the grow date date
             if(counter == 2){
-                growDateShow.setText(line);
+                String insert = line.substring(0,line.length()-1);
+                growDateShow.setText(insert);
             }
             //Notes Line
             if(counter == 4) {
-                notesShow.setText(line);
+                String insert = line.substring(0,line.length()-1);
+                notesShow.setText(insert);
             }
         }
         br.close();
@@ -154,15 +161,18 @@ public class Controller {
             System.out.println("line is: " + line);
 
             if(counter == 1){
-                plantNameShowHarvest.setText(line);
+                String insert = line.substring(0,line.length()-1);
+                plantNameShowHarvest.setText(insert);
             }
             //Skip the grow date
             if(counter == 3){
-                harvestDateShow.setText(line);
+                String insert = line.substring(0,line.length()-1);
+                harvestDateShow.setText(insert);
             }
             //The notes line
             if(counter == 4) {
-                notesShowHarvest.setText(line);
+                String insert = line.substring(0,line.length()-1);
+                notesShowHarvest.setText(insert);
             }
         }
         br.close();
@@ -195,7 +205,17 @@ public class Controller {
             harvestScheduleList.getItems().add(harvestLine);
             harvestAlerts.getItems().add(harvestLine);
         }
-        br.close();
+        harvestbr.close();
+
+
+        FileReader possibilitiesFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\possibilitiesList.txt");
+        BufferedReader possibilitiesBr = new BufferedReader(possibilitiesFr);
+        String possibilities;
+        while ((possibilities = possibilitiesBr.readLine()) != null) {
+            System.out.println("possibilities line is: " + possibilities);
+            quickCreateListView.getItems().add(possibilities);
+        }
+        possibilitiesBr.close();
     }
     //Requires: Nothing
     //Modifies: File growList and File tempFile
@@ -206,7 +226,6 @@ public class Controller {
 
         Object locateName = growScheduleList.getSelectionModel().getSelectedItem();
         growScheduleList.getItems().remove(locateName);
-        harvestScheduleList.getItems().remove(locateName);
 
         System.out.println("Removing this: " + locateName);
 
@@ -240,7 +259,7 @@ public class Controller {
         bufferWrite.close();
         copyFile("growList");
         deleteFile(locateName.toString());
-
+        clearGrow();
     }
 
     //Requires: Nothing
@@ -252,7 +271,6 @@ public class Controller {
 
         Object locateName = harvestScheduleList.getSelectionModel().getSelectedItem();
         harvestScheduleList.getItems().remove(locateName);
-        growScheduleList.getItems().remove(locateName);
 
         System.out.println("Removing this: " + locateName);
 
@@ -286,7 +304,7 @@ public class Controller {
         bufferWrite.close();
         copyFile("harvestList");
         deleteFile(locateName.toString());
-
+        clearHarvest();
     }
 
     //Requires: nothing
@@ -331,7 +349,7 @@ public class Controller {
         Stage newStage = new Stage();
         // Create the media source.
         //String source = getParameters().getRaw().get(0);
-        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwoVideoDemonstration\\src\\sample\\Garden_Video.mp4");
+        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\Garden_Video3.mp4");
         Media m = new Media(f.toURI().toString());
 
         // Create the player and set to play automatically.
@@ -349,5 +367,42 @@ public class Controller {
         newStage.setTitle("Demonstration Video");
         newStage.show();
         mediaPlayer.play();
+    }
+
+    //Requires: Nothing
+    //Modifies: Nothing
+    //Effects: Inserts the predefined plants for easy usage
+    public void quickCreate(MouseEvent mouseEvent) throws IOException{
+        System.out.println("Quick Create Running");
+        clearCreate();
+        String name = quickCreateListView.getSelectionModel().getSelectedItem().toString();
+        FileReader frTemp = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\" + name + ".txt");
+        BufferedReader brTemp = new BufferedReader(frTemp);
+
+        int counter = 0;
+        String line;
+
+        while ((line = brTemp.readLine()) != null) {
+            System.out.println(line);
+            counter ++;
+            System.out.println("counter" + counter);
+            if(counter == 1){
+                String insert = line.substring(0,line.length()-1);
+                plantName.setText(insert);
+            }
+            if(counter ==2){
+                LocalDate date = LocalDate.now();
+                startDate.setValue(date);
+            }
+            if(counter == 3){
+                LocalDate date = LocalDate.of(2020,9,13);
+                harvestEstimate.setValue(date);
+            }
+            if(counter == 4){
+                String insert = line.substring(0,line.length()-1);
+                notesOnPlant.setText(insert);
+            }
+        }
+        quickCreateListView.setDisable(true);
     }
 }

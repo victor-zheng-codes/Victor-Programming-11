@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Scene scene = new Scene(root, 650, 550);
+        Scene scene = new Scene(root, 600, 550);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Garden Scheduler");

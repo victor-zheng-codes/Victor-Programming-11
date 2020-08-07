@@ -22,7 +22,7 @@ public class Plant {
     //Effects: Adds a new list name into the plantsList
     public void writeToGrowList() throws IOException{
         System.out.println("grow date length is: " + startDate.length());
-        System.out.println("writing :" + name + " to growList");
+        System.out.println("writing: " + name + " to growList");
         FileWriter fw = new FileWriter("growList.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
 
@@ -31,11 +31,10 @@ public class Plant {
     }
 
     public void writeToHarvestList() throws IOException{
-        System.out.println("writing :" + name + " to harvestList");
+        System.out.println("writing: " + name + " to harvestList");
         FileReader fr = new FileReader("harvestList.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
-        String compareDate = "";
         int counter = 0;
 
         while((line = br.readLine()) != null) {
@@ -47,21 +46,22 @@ public class Plant {
             while((newLine = newBr.readLine()) != null){
                 counter ++;
                 if(counter == 3){
-                    compareDate = newLine;
-                    System.out.println("compare date is: " + compareDate);
-                    if(compareDates(harvestDate, compareDate)){
+                    System.out.println("compare date is: " + newLine);
+                    if(compareDates(harvestDate, newLine)){
                         System.out.println("Compared True");
                     }
-
+                    else{
+                        //Write to harvestList
+                        FileWriter fw = new FileWriter("harvestList.txt", true);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        System.out.println("Compared False");
+                        bw.write(name + "\r");
+                        bw.close();
+                    }
                 }
+                counter = 0;
             }
         }
-
-        FileWriter fw = new FileWriter("harvestList.txt", true);
-        BufferedWriter bw = new BufferedWriter(fw);
-
-        bw.write(name + "\r");
-        bw.close();
     }
 
     //Requires: Nothing
