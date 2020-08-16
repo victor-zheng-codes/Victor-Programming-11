@@ -39,7 +39,7 @@ public class Plant {
 
         while((line = br.readLine()) != null) {
             System.out.println("Reading this line: " + line);
-            FileReader newFr = new FileReader(line + ".txt");
+            FileReader newFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
             BufferedReader newBr = new BufferedReader(newFr);
             String newLine;
 

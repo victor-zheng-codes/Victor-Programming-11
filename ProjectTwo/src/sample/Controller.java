@@ -102,7 +102,7 @@ public class Controller {
 
         for(Plant i : plantListings) {
             System.out.println("writing this: " + i);
-            i.writeToFile(newPlant + ".txt", false);
+            i.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
             i.writeToGrowList();
             i.writeToHarvestList();
         }
@@ -114,7 +114,7 @@ public class Controller {
         //Clear the labels so it starts off on a blank slate
         clearGrow();
         String selected = growScheduleList.getSelectionModel().getSelectedItem();
-        FileReader fr = new FileReader(selected + ".txt");
+        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + selected + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
@@ -150,7 +150,7 @@ public class Controller {
         //Clear the labels so it starts off on a blank slate
         clearHarvest();
         String selected = harvestScheduleList.getSelectionModel().getSelectedItem();
-        FileReader fr = new FileReader(selected + ".txt");
+        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ selected + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
@@ -246,7 +246,7 @@ public class Controller {
                 growScheduleList.getItems().remove(line);
 
                 //Remove file from folder
-                File file = new File (line + ".txt");
+                File file = new File ("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
                 System.out.println(file.delete());
             }
             else{
@@ -291,7 +291,7 @@ public class Controller {
                 harvestScheduleList.getItems().remove(line);
 
                 //Remove file from folder
-                File file = new File (line + ".txt");
+                File file = new File ("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
                 System.out.println(file.delete());
             }
             else{
@@ -330,7 +330,7 @@ public class Controller {
     //Modifies: nothing
     //Effects: Deletes specified file
     public void deleteFile(String fileName) throws IOException{
-        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\", fileName + ".txt");
+        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
         System.out.println(newFile.getAbsolutePath());
         if(newFile.delete()){
             System.out.println("Deleted File");
@@ -390,13 +390,19 @@ public class Controller {
                 String insert = line.substring(0,line.length()-1);
                 plantName.setText(insert);
             }
-            if(counter ==2){
-                LocalDate date = LocalDate.now();
-                startDate.setValue(date);
+            if(counter == 2){
+                String insert = line.substring(0,line.length()-1);
+                //LocalDate date = LocalDate.now();
+                LocalDate localDate = LocalDate.parse(insert);
+
+                startDate.setValue(localDate);
             }
             if(counter == 3){
-                LocalDate date = LocalDate.of(2020,9,13);
-                harvestEstimate.setValue(date);
+                //LocalDate date = LocalDate.of(2020,9,13);
+                String insert = line.substring(0,line.length()-1);
+
+                LocalDate localDate = LocalDate.parse(insert);
+                harvestEstimate.setValue(localDate);
             }
             if(counter == 4){
                 String insert = line.substring(0,line.length()-1);

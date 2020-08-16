@@ -14,30 +14,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="429.0" prefWidth="569.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
     <Tab text="Introduction">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="590.0">
                <children>
-                  <Label layoutX="180.0" layoutY="48.0" text="Garden Scheduler">
+                  <Label layoutX="166.0" layoutY="37.0" prefHeight="36.0" prefWidth="197.0" text="Garden Scheduler">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="139.0" layoutY="95.0" text="Reminders for when to grow and harvest your plants" />
-                  <ImageView fitHeight="184.0" fitWidth="234.0" layoutX="22.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+                  <Label layoutX="127.0" layoutY="95.0" text="Reminders for when to grow and harvest your plants" />
+                  <ImageView fitHeight="130.0" fitWidth="217.0" layoutX="70.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tomato.jpeg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="154.0" fitWidth="272.0" layoutX="300.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="174.0" fitWidth="237.0" layoutX="287.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@vegetables.jpg" />
                      </image>
                   </ImageView>
-                  <Button fx:id="loadFromFileButton" layoutX="199.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#loadFromFile" prefHeight="48.0" prefWidth="158.0" text="Load from File">
+                  <Button fx:id="loadFromFileButton" layoutX="187.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#loadFromFile" prefHeight="48.0" prefWidth="158.0" text="Load from File">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -50,12 +51,22 @@
       <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="29.0" layoutY="27.0" text="How to use this application" />
-                  <Button fx:id="mediaView" layoutX="35.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#playVideo" prefHeight="56.0" prefWidth="131.0" text="Play Video">
+                  <Label layoutX="29.0" layoutY="45.0" text="How to use this application" />
+                  <Button fx:id="mediaView" layoutX="29.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#playVideo" prefHeight="56.0" prefWidth="131.0" text="Play Video">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
                   <Label fx:id="howToUseLabel" layoutX="35.0" layoutY="185.0" />
+                   <ImageView fitHeight="288.0" fitWidth="313.0" layoutX="207.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+                       <image>
+                           <Image url="@introPhoto.jpg" />
+                       </image>
+                   </ImageView>
+                  <Text layoutX="347.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?">
+                     <font>
+                        <Font size="74.0" />
+                     </font>
+                  </Text>
                </children></AnchorPane>
       </content>
     </Tab>
@@ -63,29 +74,29 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="growAlerts" layoutX="32.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ListView fx:id="harvestAlerts" layoutX="366.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Label layoutX="277.0" layoutY="22.0" text="Alerts">
+                  <ListView fx:id="growAlerts" layoutX="62.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="harvestAlerts" layoutX="308.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Label layoutX="262.0" layoutY="30.0" text="Alerts">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="210.0" layoutY="56.0" prefHeight="18.0" prefWidth="298.0" text="Check the closest alerts to today" />
-                  <Label layoutX="87.0" layoutY="114.0" text="Grow Alerts" />
-                  <Label layoutX="417.0" layoutY="114.0" text="Harvest Alerts" />
+                  <Label layoutX="191.0" layoutY="65.0" prefHeight="18.0" prefWidth="228.0" text="Check the closest alerts to today" />
+                  <Label layoutX="131.0" layoutY="114.0" text="Grow Alerts" />
+                  <Label layoutX="371.0" layoutY="114.0" text="Harvest Alerts" />
                </children></AnchorPane>
       </content>
     </Tab>
     <Tab text="Create">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="437.0" prefWidth="638.0">
                <children>
-                  <Label layoutX="21.0" layoutY="14.0" text="Create a new plant to grow!">
+                  <Label layoutX="34.0" layoutY="16.0" text="Create a new plant to grow!">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <HBox layoutX="274.0" prefHeight="260.0" prefWidth="326.0">
+                  <HBox layoutX="234.0" layoutY="46.0" prefHeight="260.0" prefWidth="326.0">
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="370.0" prefWidth="151.0" spacing="25.0">
                            <children>
@@ -104,6 +115,14 @@
                               <DatePicker fx:id="startDate" promptText="Date" />
                               <DatePicker fx:id="harvestEstimate" promptText="Date" />
                               <TextField fx:id="notesOnPlant" promptText="Eg. Grows Fast" />
+                              <Button fx:id="createPlantButton" mnemonicParsing="false" onAction="#createPlant" prefHeight="45.0" prefWidth="138.0" text="Create Plant">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children>
                            <padding>
                               <Insets left="10.0" right="10.0" top="30.0" />
@@ -111,13 +130,14 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="createPlantButton" layoutX="423.0" layoutY="274.0" mnemonicParsing="false" onAction="#createPlant" prefHeight="45.0" prefWidth="138.0" text="Create Plant">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <ListView fx:id="quickCreateListView" layoutX="21.0" layoutY="120.0" onMouseClicked="#quickCreate" prefHeight="200.0" prefWidth="200.0" />
-                  <Label layoutX="21.0" layoutY="93.0" text="Quick Create:" />
+                  <ListView fx:id="quickCreateListView" layoutX="34.0" layoutY="91.0" onMouseClicked="#quickCreate" prefHeight="200.0" prefWidth="200.0" />
+                  <Label layoutX="34.0" layoutY="61.0" text="Quick Create:" />
+                  <VBox layoutX="22.0" layoutY="306.0" prefHeight="78.0" prefWidth="445.0">
+                     <children>
+                        <Label graphicTextGap="0.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="382.0" text="Quick Create is a tool that provides the recommended dates " textFill="#f21111" />
+                        <Label layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="382.0" text="for growing and harvesting plants in the Pacific Northwest" textFill="#f21111" />
+                     </children>
+                  </VBox>
                </children></AnchorPane>
       </content>
     </Tab>
@@ -125,18 +145,21 @@
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="growScheduleList" layoutX="47.0" layoutY="123.0" onMouseClicked="#viewGrowList" prefHeight="200.0" prefWidth="200.0" />
-                  <Label layoutX="42.0" layoutY="50.0" text="This is the schedule for when you need to start growing your plants" />
-                  <Label layoutX="42.0" layoutY="14.0" text="Check your grow schedule">
+                  <ListView fx:id="growScheduleList" layoutX="25.0" layoutY="109.0" onMouseClicked="#viewGrowList" prefHeight="200.0" prefWidth="177.0" />
+                  <Label layoutX="25.0" layoutY="74.0" text="This is the schedule for when you need to start growing your plants" />
+                  <Label layoutX="25.0" layoutY="28.0" text="Check your grow schedule">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <HBox fx:id="growScheduleView" layoutX="287.0" layoutY="151.0" prefHeight="172.0" prefWidth="291.0">
+                  <HBox fx:id="growScheduleView" layoutX="212.0" layoutY="137.0" prefHeight="172.0" prefWidth="338.0">
                      <children>
-                        <VBox alignment="TOP_RIGHT" prefHeight="172.0" prefWidth="130.0" spacing="15.0">
+                        <VBox alignment="TOP_RIGHT" prefHeight="172.0" prefWidth="170.0" spacing="15.0">
                            <children>
-                              <Label text="Name of plant:" />
+                              <Label text="Name of plant:">
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding></Label>
                               <Label layoutX="10.0" layoutY="10.0" text="Grow Date:" />
                               <Label text="Notes:" />
                            </children>
@@ -146,10 +169,16 @@
                            <opaqueInsets>
                               <Insets right="10.0" />
                            </opaqueInsets>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="163.0" spacing="15.0">
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="213.0" spacing="15.0">
                            <children>
-                              <Label fx:id="plantNameShow" />
+                              <Label fx:id="plantNameShow">
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding></Label>
                               <Label fx:id="growDateShow" />
                               <Label fx:id="notesShow" />
                            </children>
@@ -159,7 +188,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="removePlantGrowButton" layoutX="310.0" layoutY="323.0" mnemonicParsing="false" onMouseClicked="#removePlantGrow" text="Remove Plant" />
+                  <Button fx:id="removePlantGrowButton" layoutX="285.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#removePlantGrow" prefHeight="26.0" prefWidth="120.0" text="Remove Plant" />
                </children></AnchorPane>
         </content>
     </Tab>
@@ -167,27 +196,34 @@
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="40.0" layoutY="20.0" text="Check your harvest schedule">
+                  <Label layoutX="40.0" layoutY="14.0" text="Check your harvest schedule">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="40.0" layoutY="56.0" text="This is the schedule for when you need to start harvesting your plants" />
-                   <HBox fx:id="harvestScheduleView" layoutX="276.0" layoutY="155.0" prefHeight="172.0" prefWidth="260.0">
+                  <Label layoutX="40.0" layoutY="54.0" text="This is the schedule for when you need to start harvesting your plants" />
+                   <HBox fx:id="harvestScheduleView" layoutX="236.0" layoutY="97.0" prefHeight="174.0" prefWidth="306.0">
                        <children>
-                           <VBox alignment="TOP_RIGHT" prefHeight="172.0" prefWidth="128.0" spacing="15.0">
+                           <VBox alignment="TOP_RIGHT" prefHeight="174.0" prefWidth="144.0" spacing="15.0">
                                <children>
-                                   <Label text="Name of plant:" />
+                                   <Label text="Name of plant:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin></Label>
                                    <Label layoutX="10.0" layoutY="10.0" text="Harvest Date:" />
                                    <Label text="Notes:" />
                                </children>
                                <padding>
-                                   <Insets left="10.0" />
+                                   <Insets left="10.0" right="10.0" />
                                </padding>
                            </VBox>
-                           <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                           <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="194.0" spacing="15.0">
                                <children>
-                                   <Label fx:id="plantNameShowHarvest" />
+                                   <Label fx:id="plantNameShowHarvest">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
                                    <Label fx:id="harvestDateShow" />
                                    <Label fx:id="notesShowHarvest" />
                                </children>
@@ -197,8 +233,8 @@
                            </VBox>
                        </children>
                    </HBox>
-                  <ListView fx:id="harvestScheduleList" layoutX="53.0" layoutY="127.0" onMouseClicked="#viewHarvestList" prefHeight="200.0" prefWidth="200.0" />
-                  <Button fx:id="removePlantHarvestButton" layoutX="300.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#removePlantHarvest" text="Remove Plant" />
+                  <ListView fx:id="harvestScheduleList" layoutX="40.0" layoutY="108.0" onMouseClicked="#viewHarvestList" prefHeight="200.0" prefWidth="170.0" />
+                  <Button fx:id="removePlantHarvestButton" layoutX="316.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#removePlantHarvest" prefHeight="26.0" prefWidth="124.0" text="Remove Plant" />
                </children></AnchorPane>
         </content>
     </Tab>
