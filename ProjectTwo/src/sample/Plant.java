@@ -2,9 +2,11 @@ package sample;
 
 import java.io.*;
 import java.nio.Buffer;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Plant {
+    private ArrayList<String> comparedList = new ArrayList<String>();
     private String name;
     private String startDate;
     private String harvestDate;
@@ -21,6 +23,7 @@ public class Plant {
     //Modifies: nothing
     //Effects: Adds a new list name into the plantsList
     public void writeToGrowList() throws IOException{
+        /*
         System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to growList");
         FileWriter fw = new FileWriter("growList.txt", true);
@@ -28,6 +31,7 @@ public class Plant {
 
         bw.write(name + "\r");
         bw.close();
+         */
     }
 
     public void writeToHarvestList() throws IOException{

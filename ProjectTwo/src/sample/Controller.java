@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -44,6 +45,8 @@ public class Controller {
     public Button mediaView;
     public Label howToUseLabel;
     public ListView quickCreateListView;
+    public Label createPlantLabel;
+    public VBox createVBox;
 
     //Requires: Nothing
     //Modifies: nothing
@@ -77,36 +80,82 @@ public class Controller {
     //Modifies: this
     //Effects: creates a new plant and saves it to file
     public void createPlant(ActionEvent actionEvent) throws IOException{
-        quickCreateListView.setDisable(false);
-        Object locateName = quickCreateListView.getSelectionModel().getSelectedItem();
-        quickCreateListView.getItems().remove(locateName);
-
         String name = plantName.getText();
-        LocalDate plantStartDate = startDate.getValue();
-        LocalDate harvestDate = harvestEstimate.getValue();
-        String notes = notesOnPlant.getText();
 
-        Plant newPlant = new Plant(name, plantStartDate.toString(), harvestDate.toString(), notes);
-        System.out.println(newPlant);
-        //loadGrowList();
+        //Determine if the new plant is already in either list
+        //If true, then display the label telling user that there is a duplicate
+        if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
+            System.out.println("Plant already in a list");
+            createPlantLabel.setText("Plant already in a list");
+            //Use Color library to find a green colour for the label
+            createPlantLabel.setTextFill(Color.web("#FFC300"));
 
-        growScheduleList.getItems().add(newPlant.getName());
-        harvestScheduleList.getItems().add(newPlant.getName());
-        plantsList.getItems().add(newPlant);
-
-        growAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getStartDate());
-        harvestAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getHarvestDate());
-        //Clear the create fields for the next plant
-        clearCreate();
-        ObservableList<Plant> plantListings = plantsList.getItems();
-
-        for(Plant i : plantListings) {
-            System.out.println("writing this: " + i);
-            i.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
-            i.writeToGrowList();
-            i.writeToHarvestList();
         }
+
+        //If statement to determine if user has not entered the name, or either dates, or notes.
+        else if(plantName.getText().isEmpty() || startDate.getValue() == null || harvestEstimate.getValue() == null || notesOnPlant.getText().isEmpty()){
+            System.out.println("Missing an input");
+            createPlantLabel.setTextFill(Color.web("#FF00FB"));
+            createPlantLabel.setText("Missing an input");
+        }
+
+        else{
+            createPlantLabel.setText("");
+            //Disable the quick create list view for creation of more plants
+            quickCreateListView.setDisable(false);
+            Object locateName = quickCreateListView.getSelectionModel().getSelectedItem();
+            //Remove the quick create object from GUI.
+            quickCreateListView.getItems().remove(locateName);
+
+            //Get the rest of the info provided: start date, harvest date, and notes on the plant
+            LocalDate plantStartDate = startDate.getValue();
+            LocalDate harvestDate = harvestEstimate.getValue();
+            String notes = notesOnPlant.getText();
+
+            Plant newPlant = new Plant(name, plantStartDate.toString(), harvestDate.toString(), notes);
+            System.out.println(newPlant);
+
+            growScheduleList.getItems().add(newPlant.getName());
+            harvestScheduleList.getItems().add(newPlant.getName());
+            plantsList.getItems().add(newPlant);
+
+            growAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getStartDate());
+            harvestAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getHarvestDate());
+            //Clear the create fields for the next plant
+            clearCreate();
+            ObservableList<Plant> plantListings = plantsList.getItems();
+
+            for(Plant i : plantListings) {
+                System.out.println("writing this: " + i);
+                i.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
+                i.writeToGrowList();
+                i.writeToHarvestList();
+            }
+        }
+
     }
+
+    //Requires: String
+    //Modifies: File friendLists.txt
+    //Effects: Checks if the newListName is a duplicate in the File
+    public boolean compareLists(String newListName, String fileName) throws IOException{
+        FileReader fr = new FileReader(fileName);
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+
+        while((line = br.readLine()) != null) {
+            if(line.equals(newListName)){
+                System.out.println("List name is duplicate");
+                br.close();
+                return true;
+            }
+        }
+        br.close();
+        return false;
+
+    }
+
+
     //Requires: Nothing
     //Modifies: Nothing
     //Effects: read each file and write out to the list
@@ -183,7 +232,13 @@ public class Controller {
     //Effects: loads the harvestList and growList
     public void loadFromFile(MouseEvent mouseEvent) throws IOException {
         System.out.println("Loading list");
+
+        //Enable the V Box that enables user to create new plants
+        createVBox.setDisable(false);
+        //Disable the load from file button
         loadFromFileButton.setDisable(true);
+        //Clear the createPlantLabel
+        createPlantLabel.setText("");
         //plantsList.getItems().clear();
 
         System.out.println("updating new load");
@@ -376,39 +431,47 @@ public class Controller {
         System.out.println("Quick Create Running");
         clearCreate();
         String name = quickCreateListView.getSelectionModel().getSelectedItem().toString();
-        FileReader frTemp = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\" + name + ".txt");
-        BufferedReader brTemp = new BufferedReader(frTemp);
 
-        int counter = 0;
-        String line;
-
-        while ((line = brTemp.readLine()) != null) {
-            System.out.println(line);
-            counter ++;
-            System.out.println("counter" + counter);
-            if(counter == 1){
-                String insert = line.substring(0,line.length()-1);
-                plantName.setText(insert);
-            }
-            if(counter == 2){
-                String insert = line.substring(0,line.length()-1);
-                //LocalDate date = LocalDate.now();
-                LocalDate localDate = LocalDate.parse(insert);
-
-                startDate.setValue(localDate);
-            }
-            if(counter == 3){
-                //LocalDate date = LocalDate.of(2020,9,13);
-                String insert = line.substring(0,line.length()-1);
-
-                LocalDate localDate = LocalDate.parse(insert);
-                harvestEstimate.setValue(localDate);
-            }
-            if(counter == 4){
-                String insert = line.substring(0,line.length()-1);
-                notesOnPlant.setText(insert);
-            }
+        if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
+            System.out.println("Plant already in a list");
+            createPlantLabel.setText("Plant already in a list");
         }
-        quickCreateListView.setDisable(true);
+
+        else{
+            createPlantLabel.setText("");
+            FileReader frTemp = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\" + name + ".txt");
+            BufferedReader brTemp = new BufferedReader(frTemp);
+            int counter = 0;
+            String line;
+
+            while ((line = brTemp.readLine()) != null) {
+                System.out.println(line);
+                counter ++;
+                System.out.println("counter" + counter);
+                if(counter == 1){
+                    String insert = line.substring(0,line.length()-1);
+                    plantName.setText(insert);
+                }
+                if(counter == 2){
+                    String insert = line.substring(0,line.length()-1);
+                    //LocalDate date = LocalDate.now();
+                    LocalDate localDate = LocalDate.parse(insert);
+
+                    startDate.setValue(localDate);
+                }
+                if(counter == 3){
+                    //LocalDate date = LocalDate.of(2020,9,13);
+                    String insert = line.substring(0,line.length()-1);
+
+                    LocalDate localDate = LocalDate.parse(insert);
+                    harvestEstimate.setValue(localDate);
+                }
+                if(counter == 4){
+                    String insert = line.substring(0,line.length()-1);
+                    notesOnPlant.setText(insert);
+                }
+            }
+            quickCreateListView.setDisable(true);
+        }
     }
 }
