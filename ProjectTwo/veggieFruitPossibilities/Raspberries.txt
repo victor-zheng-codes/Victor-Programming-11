@@ -1,5 +1,0 @@
-Raspberries,
-2020-05-30,
-2020-10-01,
-grows fast,
-;

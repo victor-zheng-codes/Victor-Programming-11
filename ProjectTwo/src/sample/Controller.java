@@ -471,7 +471,7 @@ public class Controller {
                     notesOnPlant.setText(insert);
                 }
             }
-            quickCreateListView.setDisable(true);
+            //quickCreateListView.setDisable(true);
         }
     }
 }

@@ -1,5 +1,5 @@
 Rhubarb,
-2020-05-30,
-2020-10-01,
-grows extremely fast,
+2020-04-01,
+2021-07-01,
+Start indoors, do not eat leaves,
 ;

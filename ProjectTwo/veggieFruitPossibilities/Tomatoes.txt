@@ -1,5 +1,1 @@
-Tomatoes,
-2020-05-30,
-2020-10-01,
-grows slow,
-;
+Tomatoes,2020-05-30,2020-07-01,Indoors and harvest desired colour,;
