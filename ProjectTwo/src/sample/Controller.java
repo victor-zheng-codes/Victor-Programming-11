@@ -47,6 +47,8 @@ public class Controller {
     public ListView quickCreateListView;
     public Label createPlantLabel;
     public VBox createVBox;
+    public Label notesShowExtra;
+    public Label notesShowHarvestExtra;
 
     //Requires: Nothing
     //Modifies: nothing
@@ -65,6 +67,7 @@ public class Controller {
         plantNameShow.setText("");
         growDateShow.setText("");
         notesShow.setText("");
+        notesShowExtra.setText("");
     }
 
     //Requires: Nothing
@@ -74,6 +77,7 @@ public class Controller {
         plantNameShowHarvest.setText("");
         harvestDateShow.setText("");
         notesShowHarvest.setText("");
+        notesShowHarvestExtra.setText("");
     }
 
     //Requires: nothing
@@ -160,6 +164,7 @@ public class Controller {
     //Modifies: Nothing
     //Effects: read each file and write out to the list
     public void viewGrowList(MouseEvent mouseEvent) throws IOException{
+
         //Clear the labels so it starts off on a blank slate
         clearGrow();
         String selected = growScheduleList.getSelectionModel().getSelectedItem();
@@ -184,9 +189,25 @@ public class Controller {
                 growDateShow.setText(insert);
             }
             //Notes Line
+            //Created an approach that finds the first 3 spaces, and creates a new line if there is less than 3 spaces.
+            //Ensures better separation for each plant
+            int countTotal = 0;
+            int spaceFinding = 0;
             if(counter == 4) {
-                String insert = line.substring(0,line.length()-1);
-                notesShow.setText(insert);
+                for (int i = 0; i < line.length(); i++) {
+                    if (line.substring(i, i + 1).equals(" ")) {
+                        spaceFinding++;
+                        if (spaceFinding == 3) {
+                            notesShow.setText(line.substring(0, countTotal));
+                            notesShowExtra.setText(line.substring(countTotal, line.length() - 1));
+                            break;
+                        }
+                        else{
+                            notesShow.setText(line.substring(0,line.length()-1));
+                        }
+                    }
+                    countTotal++;
+                }
             }
         }
         br.close();
@@ -218,10 +239,24 @@ public class Controller {
                 String insert = line.substring(0,line.length()-1);
                 harvestDateShow.setText(insert);
             }
-            //The notes line
+            //The notes lines
+            int countTotal = 0;
+            int spaceFinding = 0;
             if(counter == 4) {
-                String insert = line.substring(0,line.length()-1);
-                notesShowHarvest.setText(insert);
+                for (int i = 0; i < line.length(); i++) {
+                    if(line.substring(i,i+1).equals(" ")){
+                        spaceFinding ++;
+                        if(spaceFinding == 3){
+                            notesShowHarvest.setText(line.substring(0,countTotal));
+                            notesShowHarvestExtra.setText(line.substring(countTotal, line.length()-1));
+                            break;
+                        }
+                        else{
+                            notesShowHarvest.setText(line.substring(0,line.length()-1));
+                        }
+                    }
+                    countTotal ++;
+                }
             }
         }
         br.close();

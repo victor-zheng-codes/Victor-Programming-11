@@ -174,14 +174,21 @@
                               <Insets />
                            </HBox.margin>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="213.0" spacing="15.0">
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="213.0" spacing="5.0">
                            <children>
                               <Label fx:id="plantNameShow">
                                  <padding>
                                     <Insets top="10.0" />
                                  </padding></Label>
-                              <Label fx:id="growDateShow" />
-                              <Label fx:id="notesShow" />
+                              <Label fx:id="growDateShow">
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding></Label>
+                              <Label fx:id="notesShow">
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding></Label>
+                              <Label fx:id="notesShowExtra" layoutX="111.0" layoutY="85.0" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
@@ -218,15 +225,22 @@
                                    <Insets left="10.0" right="10.0" />
                                </padding>
                            </VBox>
-                           <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="194.0" spacing="15.0">
+                           <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="172.0" prefWidth="194.0" spacing="5.0">
                                <children>
                                    <Label fx:id="plantNameShowHarvest">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
-                                   <Label fx:id="harvestDateShow" />
-                                   <Label fx:id="notesShowHarvest" />
+                                   <Label fx:id="harvestDateShow">
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding></Label>
+                                   <Label fx:id="notesShowHarvest">
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding></Label>
+                              <Label fx:id="notesShowHarvestExtra" layoutX="104.0" layoutY="86.0" />
                                </children>
                                <padding>
                                    <Insets left="10.0" />
