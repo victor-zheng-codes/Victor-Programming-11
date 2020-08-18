@@ -196,7 +196,8 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="removePlantGrowButton" layoutX="285.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#removePlantGrow" prefHeight="26.0" prefWidth="120.0" text="Remove Plant" />
+                  <Button fx:id="removePlantGrowButton" layoutX="235.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#removePlantGrow" prefHeight="26.0" prefWidth="218.0" text="Remove plant from grow list" visible="false" />
+                  <Button fx:id="permanentlyDeleteButtonGrow" layoutX="284.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#permanentlyDeleteViaGrow" text="Permanently Delete" visible="false" />
                </children></AnchorPane>
         </content>
     </Tab>
@@ -249,7 +250,8 @@
                        </children>
                    </HBox>
                   <ListView fx:id="harvestScheduleList" layoutX="40.0" layoutY="108.0" onMouseClicked="#viewHarvestList" prefHeight="200.0" prefWidth="170.0" />
-                  <Button fx:id="removePlantHarvestButton" layoutX="316.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#removePlantHarvest" prefHeight="26.0" prefWidth="124.0" text="Remove Plant" />
+                  <Button fx:id="removePlantHarvestButton" layoutX="242.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#removePlantHarvest" prefHeight="26.0" prefWidth="234.0" text="Remove plant from harvest list" visible="false" />
+                  <Button fx:id="permanentlyDeleteButtonHarvest" layoutX="276.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#permanentlyDeleteViaHarvest" prefHeight="26.0" prefWidth="166.0" text="Permanently delete" visible="false" />
                </children></AnchorPane>
         </content>
     </Tab>

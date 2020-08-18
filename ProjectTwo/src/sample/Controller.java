@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -14,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class Controller {
@@ -49,6 +52,8 @@ public class Controller {
     public VBox createVBox;
     public Label notesShowExtra;
     public Label notesShowHarvestExtra;
+    public Button permanentlyDeleteButtonHarvest;
+    public Button permanentlyDeleteButtonGrow;
 
     //Requires: Nothing
     //Modifies: nothing
@@ -165,6 +170,10 @@ public class Controller {
     //Effects: read each file and write out to the list
     public void viewGrowList(MouseEvent mouseEvent) throws IOException{
 
+        //Enable the remove button for the grow page
+        removePlantGrowButton.setVisible(true);
+        permanentlyDeleteButtonGrow.setVisible(true);
+
         //Clear the labels so it starts off on a blank slate
         clearGrow();
         String selected = growScheduleList.getSelectionModel().getSelectedItem();
@@ -217,6 +226,10 @@ public class Controller {
     //Modifies: Nothing
     //Effects: read each file and write out to the list
     public void viewHarvestList(MouseEvent mouseEvent) throws IOException{
+        //Enable the remove buttons on the harvest page
+        removePlantHarvestButton.setVisible(true);
+        permanentlyDeleteButtonHarvest.setVisible(true);
+
         //Clear the labels so it starts off on a blank slate
         clearHarvest();
         String selected = harvestScheduleList.getSelectionModel().getSelectedItem();
@@ -276,6 +289,7 @@ public class Controller {
         createPlantLabel.setText("");
         //plantsList.getItems().clear();
 
+        //Read the grow list and update the schedule and alerts
         System.out.println("updating new load");
         FileReader fr = new FileReader("growList.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -283,21 +297,31 @@ public class Controller {
         while ((line = br.readLine()) != null) {
             System.out.println("line is: " + line);
             growScheduleList.getItems().add(line);
-            growAlerts.getItems().add(line);
+
+            //Googled a way to find a line from a file.
+            String growDate = Files.readAllLines(Paths.get("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ line + ".txt")).get(2);
+            //Display only the name, with 2 dashes, and the date. Date is found with the length - the comma at the end
+            growAlerts.getItems().add(line + " -- " + growDate.substring(0, growDate.length()-1));
         }
         br.close();
 
+        //Read the harvest list and update the schedule and alerts
         FileReader harvestfr = new FileReader("harvestList.txt");
         BufferedReader harvestbr = new BufferedReader(harvestfr);
         String harvestLine;
         while ((harvestLine = harvestbr.readLine()) != null) {
             System.out.println("harvestList line is: " + harvestLine);
             harvestScheduleList.getItems().add(harvestLine);
-            harvestAlerts.getItems().add(harvestLine);
+
+            //Googled a way to find a line from a file.
+            String harvestDate = Files.readAllLines(Paths.get("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ harvestLine + ".txt")).get(2);
+            //Display only the name, with 2 dashes, and the date. Date is found with the length - the comma at the end
+            harvestAlerts.getItems().add(harvestLine + " -- " + harvestDate.substring(0, harvestDate.length()-1));
         }
         harvestbr.close();
 
 
+        //Load all the possibilites out onto quick create
         FileReader possibilitiesFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\possibilitiesList.txt");
         BufferedReader possibilitiesBr = new BufferedReader(possibilitiesFr);
         String possibilities;
@@ -332,12 +356,15 @@ public class Controller {
             //When we locate the line, we can delete this from the list
             if(line.equals(locateName)){
                 System.out.println("line located: " + line + " located: " + locateName);
-                System.out.println("line is: " + line);
-                growScheduleList.getItems().remove(line);
+                System.out.println("line not written to temp file is: " + line);
+                //growScheduleList.getItems().remove(line);
 
+                /* Not going to remove as this does not remove the harvest list too
                 //Remove file from folder
                 File file = new File ("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
                 System.out.println(file.delete());
+
+                 */
             }
             else{
                 //Else, we write the file back into the list
@@ -347,8 +374,8 @@ public class Controller {
         }
         br.close();
         bufferWrite.close();
-        copyFile("growList");
-        deleteFile(locateName.toString());
+        copyFile("growList.txt");
+        //deleteFile(locateName.toString());
         clearGrow();
     }
 
@@ -377,12 +404,15 @@ public class Controller {
             //When we locate the line, we can delete this from the list
             if(line.equals(locateName)){
                 System.out.println("line located: " + line + " located: " + locateName);
-                System.out.println("line is: " + line);
-                harvestScheduleList.getItems().remove(line);
+                System.out.println("line not written to temp file is: " + line);
+                //harvestScheduleList.getItems().remove(line);
 
+                /* Not going to remove as this does not delete the grow list at the same time
                 //Remove file from folder
                 File file = new File ("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
                 System.out.println(file.delete());
+
+                 */
             }
             else{
                 //Else, we write the file back into the list
@@ -392,8 +422,8 @@ public class Controller {
         }
         br.close();
         bufferWrite.close();
-        copyFile("harvestList");
-        deleteFile(locateName.toString());
+        copyFile("harvestList.txt");
+        //deleteFile(locateName.toString());
         clearHarvest();
     }
 
@@ -401,7 +431,7 @@ public class Controller {
     //Modifies: File input file and File tempFile
     //Effects: reads tempFile.txt and copies it to the inputFile.txt.
     public void copyFile(String inputFile) throws IOException {
-        FileWriter fileWrite = new FileWriter(inputFile + ".txt");
+        FileWriter fileWrite = new FileWriter(inputFile);
         BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
 
         FileReader frTemp = new FileReader("tempFile.txt");
@@ -414,20 +444,6 @@ public class Controller {
         }
         bufferWrite.close();
         brTemp.close();
-    }
-
-    //Requires: nothing
-    //Modifies: nothing
-    //Effects: Deletes specified file
-    public void deleteFile(String fileName) throws IOException{
-        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
-        System.out.println(newFile.getAbsolutePath());
-        if(newFile.delete()){
-            System.out.println("Deleted File");
-        }
-        else {
-            System.out.println("Failed to delete");
-        }
     }
 
 
@@ -508,5 +524,38 @@ public class Controller {
             }
             //quickCreateListView.setDisable(true);
         }
+    }
+
+    //Requires: nothing
+    //Modifies: nothing
+    //Effects: Deletes selected file from grow listView
+    public void permanentlyDeleteViaGrow(MouseEvent mouseEvent) throws IOException{
+        //Delete from both the grow and harvest lists
+        Object locateName = growScheduleList.getSelectionModel().getSelectedItem();
+        harvestScheduleList.getItems().remove(locateName);
+        growScheduleList.getItems().remove(locateName);
+
+
+        String fileName = locateName.toString();
+
+        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
+        System.out.println(newFile.getAbsolutePath());
+        System.out.println(newFile.delete());
+
+    }
+
+    //Requires: nothing
+    //Modifies: nothing
+    //Effects: Deletes selected file from harvest listView
+    public void permanentlyDeleteViaHarvest(MouseEvent mouseEvent) throws IOException{
+        //Delete from both the grow and harvest lists
+        Object locateName = harvestScheduleList.getSelectionModel().getSelectedItem();
+        harvestScheduleList.getItems().remove(locateName);
+        growScheduleList.getItems().remove(locateName);
+
+        String fileName = locateName.toString();
+        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
+        System.out.println(newFile.getAbsolutePath());
+        System.out.println(newFile.delete());
     }
 }
