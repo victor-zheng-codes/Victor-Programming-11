@@ -41,7 +41,6 @@ public class Controller {
     public Button createPlantButton;
     public ListView<String> growScheduleList = new ListView<>();
     public ListView<String> harvestScheduleList = new ListView<>();
-    public MediaView media;
     public Button removePlantGrowButton;
     public Button removePlantHarvestButton;
     public Button loadFromFileButton;
@@ -299,7 +298,7 @@ public class Controller {
             growScheduleList.getItems().add(line);
 
             //Googled a way to find a line from a file.
-            String growDate = Files.readAllLines(Paths.get("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ line + ".txt")).get(2);
+            String growDate = Files.readAllLines(Paths.get("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ line + ".txt")).get(1);
             //Display only the name, with 2 dashes, and the date. Date is found with the length - the comma at the end
             growAlerts.getItems().add(line + " -- " + growDate.substring(0, growDate.length()-1));
         }
@@ -321,7 +320,7 @@ public class Controller {
         harvestbr.close();
 
 
-        //Load all the possibilites out onto quick create
+        //Load all the possibilities out onto quick create
         FileReader possibilitiesFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\possibilitiesList.txt");
         BufferedReader possibilitiesBr = new BufferedReader(possibilitiesFr);
         String possibilities;
@@ -449,30 +448,12 @@ public class Controller {
 
     //Requires: Nothing
     //Modifies: Nothing
-    //Effects: Plays the video and audio
+    //Effects: Plays the video and audio.
     public void playVideo(MouseEvent mouseEvent) {
+        System.out.println("Playing demonstration video");
         howToUseLabel.setText("Video has opened in another stage");
-        Stage newStage = new Stage();
-        // Create the media source.
-        //String source = getParameters().getRaw().get(0);
-        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\Garden_Video3.mp4");
-        Media m = new Media(f.toURI().toString());
+        Video.playVideo();
 
-        // Create the player and set to play automatically.
-        MediaPlayer mediaPlayer = new MediaPlayer(m);
-        mediaPlayer.setAutoPlay(true);
-
-        // Create the view and add it to the Scene.
-        MediaView mediaView = new MediaView(mediaPlayer);
-
-        //stage.setScene(new Scene(root, 680, 400));
-        VBox mediaArea = new VBox(mediaView);
-        Scene scene = new Scene(mediaArea, 640, 500);
-
-        newStage.setScene(scene);
-        newStage.setTitle("Demonstration Video");
-        newStage.show();
-        mediaPlayer.play();
     }
 
     //Requires: Nothing

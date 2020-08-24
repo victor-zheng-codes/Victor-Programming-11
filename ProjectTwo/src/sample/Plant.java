@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Plant {
-    private ArrayList<String> comparedList = new ArrayList<String>();
     private String name;
     private String startDate;
     private String harvestDate;
@@ -32,9 +31,52 @@ public class Plant {
         bw.write(name + "\r");
         bw.close();
          */
+        ArrayList<String> comparedList = new ArrayList<String>();
+
+        System.out.println("writing: " + name + " to growList");
+        FileReader fr = new FileReader("growList.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        int counter = 0;
+
+        while((line = br.readLine()) != null) {
+            System.out.println("Reading this line: " + line);
+            FileReader newFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
+            BufferedReader newBr = new BufferedReader(newFr);
+            String newLine;
+            while((newLine = newBr.readLine()) != null){
+                counter ++;
+                if(counter == 2){
+                    System.out.println("compare date is: " + newLine);
+                    if(compareDates(startDate, newLine)){
+                        comparedList.add(line);
+                        System.out.println("Compared True");
+                        System.out.println("Compared list is now: " + comparedList);
+                    }
+                    else{
+                        System.out.println("Compared False");
+                        comparedList.add(name);
+                    }
+                    //Write to grow List file as the earlier date, and the previous date as the latter date
+                    FileWriter fw = new FileWriter("growList.txt", true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    for(int i = 0; i < comparedList.size(); i++){
+                        bw.write(comparedList.get(i) + "\r");
+                    }
+                    bw.close();
+                }
+                else{
+                    System.out.println("Counter not equal to 2, counter is: " + counter);
+                }
+                //counter = 0;
+            }
+        }
     }
 
     public void writeToHarvestList() throws IOException{
+        ArrayList<String> comparedList = new ArrayList<String>();
+
+
         System.out.println("writing: " + name + " to harvestList");
         FileReader fr = new FileReader("harvestList.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -46,31 +88,39 @@ public class Plant {
             FileReader newFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
             BufferedReader newBr = new BufferedReader(newFr);
             String newLine;
-
             while((newLine = newBr.readLine()) != null){
                 counter ++;
                 if(counter == 3){
                     System.out.println("compare date is: " + newLine);
                     if(compareDates(harvestDate, newLine)){
                         System.out.println("Compared True");
+                        comparedList.add(line);
                     }
                     else{
-                        //Write to harvestList
-                        FileWriter fw = new FileWriter("harvestList.txt", true);
-                        BufferedWriter bw = new BufferedWriter(fw);
+
                         System.out.println("Compared False");
-                        bw.write(name + "\r");
-                        bw.close();
+                        comparedList.add(name);
                     }
+                    //Write to harvestList file as the earlier date, and the previous date as the latter date
+                    FileWriter fw = new FileWriter("harvestList.txt", true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+                    for(int i = 0; i < comparedList.size(); i++){
+                        bw.write(comparedList.get(i) + "\r");
+                    }
+                    bw.close();
                 }
-                counter = 0;
+                else{
+                    System.out.println("Counter not equal to 3, counter is: " + counter);
+                }
+                //counter = 0;
             }
         }
     }
 
     //Requires: Nothing
     //Modifies: Nothing
-    //Effects: Compares two dates, returns true if first date is greater than the second
+    //Effects: Compares two dates, returns true if first date is greater/farther out than the second
     public static boolean compareDates(String firstDate, String comparedDate){
         //Prompt Question: Is the first date bigger than the second, eg 2020-08-22 > 2020-08-02. Therefore true is returned
         System.out.println("Comparing these dates: " + firstDate + " and " + comparedDate);
