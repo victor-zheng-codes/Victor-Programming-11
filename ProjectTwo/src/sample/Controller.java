@@ -373,7 +373,7 @@ public class Controller {
         }
         br.close();
         bufferWrite.close();
-        copyFile("growList.txt");
+        CopyFile.copy("growList.txt", "tempFile.txt");
         //deleteFile(locateName.toString());
         clearGrow();
     }
@@ -421,30 +421,10 @@ public class Controller {
         }
         br.close();
         bufferWrite.close();
-        copyFile("harvestList.txt");
+        CopyFile.copy("harvestList.txt", "tempFile.txt");
         //deleteFile(locateName.toString());
         clearHarvest();
     }
-
-    //Requires: nothing
-    //Modifies: File input file and File tempFile
-    //Effects: reads tempFile.txt and copies it to the inputFile.txt.
-    public void copyFile(String inputFile) throws IOException {
-        FileWriter fileWrite = new FileWriter(inputFile);
-        BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
-
-        FileReader frTemp = new FileReader("tempFile.txt");
-        BufferedReader brTemp = new BufferedReader(frTemp);
-
-        String line;
-
-        while ((line = brTemp.readLine()) != null) {
-            bufferWrite.write(line + "\r");
-        }
-        bufferWrite.close();
-        brTemp.close();
-    }
-
 
     //Requires: Nothing
     //Modifies: Nothing
