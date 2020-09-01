@@ -9,7 +9,7 @@ public class LoadPlants {
 
     private static FileReader fr;
     private static BufferedReader br;
-    private static ArrayList<Plant> plants = new ArrayList<>();
+    private static ArrayList<InitiatePlant> plants = new ArrayList<>();
 
     //Requires: String
     //Modifies: this, File fileName
@@ -86,7 +86,7 @@ public class LoadPlants {
         }
 
         //String name, String startDate, String harvestDate, String notes
-        plants.add(new Plant(conversionList.get(0),(conversionList.get(1)),(conversionList.get(2)),conversionList.get(3)));
+        plants.add(new InitiatePlant(conversionList.get(0),(conversionList.get(1)),(conversionList.get(2)),conversionList.get(3)));
 
     }
 }

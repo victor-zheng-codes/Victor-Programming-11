@@ -1,7 +1,8 @@
+import com.sun.org.apache.xml.internal.security.Init;
 import org.junit.Before;
 import org.junit.Test;
 import sample.LoadPlants;
-import sample.Plant;
+import sample.InitiatePlant;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,12 +21,12 @@ public class writePlantToFileTest {
 
     public void checkNewPlant() throws IOException {
         //Initialize array list
-        ArrayList<Plant> testing = new ArrayList<>();
+        ArrayList<InitiatePlant> testing = new ArrayList<>();
         //check that plant list is empty
         assertEquals(0, testing.size());
 
         //create a new plant, append false to start from beginning
-        Plant newPlantOne = new Plant("name", "07-29-2020", "09-21-2020", "Needs watering");
+        InitiatePlant newPlantOne = new InitiatePlant("name", "07-29-2020", "09-21-2020", "Needs watering");
         newPlantOne.writeToFile("test.txt", false);
 
         //Check that array list size is increased file

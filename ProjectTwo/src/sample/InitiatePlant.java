@@ -1,17 +1,19 @@
 package sample;
 
+import javafx.scene.input.MouseEvent;
+
 import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Plant {
+public class InitiatePlant {
     private String name;
     private String startDate;
     private String harvestDate;
     private String notes;
 
-    public Plant(String name, String startDate, String harvestDate, String notes){
+    public InitiatePlant(String name, String startDate, String harvestDate, String notes){
         this.name = name;
         this.startDate = startDate;
         this.harvestDate = harvestDate;

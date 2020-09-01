@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class Controller {
-    public ListView<Plant> plantsList = new ListView<>();
+    public ListView<InitiatePlant> plantsList = new ListView<>();
     public TextField notesOnPlant;
     public TextField plantName;
     public DatePicker harvestEstimate;
@@ -120,7 +120,7 @@ public class Controller {
             LocalDate harvestDate = harvestEstimate.getValue();
             String notes = notesOnPlant.getText();
 
-            Plant newPlant = new Plant(name, plantStartDate.toString(), harvestDate.toString(), notes);
+            InitiatePlant newPlant = new InitiatePlant(name, plantStartDate.toString(), harvestDate.toString(), notes);
             System.out.println(newPlant);
 
             growScheduleList.getItems().add(newPlant.getName());
@@ -131,9 +131,9 @@ public class Controller {
             harvestAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getHarvestDate());
             //Clear the create fields for the next plant
             clearCreate();
-            ObservableList<Plant> plantListings = plantsList.getItems();
+            ObservableList<InitiatePlant> plantListings = plantsList.getItems();
 
-            for(Plant i : plantListings) {
+            for(InitiatePlant i : plantListings) {
                 System.out.println("writing this: " + i);
                 i.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
                 i.writeToGrowList();
@@ -286,7 +286,6 @@ public class Controller {
         loadFromFileButton.setDisable(true);
         //Clear the createPlantLabel
         createPlantLabel.setText("");
-        //plantsList.getItems().clear();
 
         //Read the grow list and update the schedule and alerts
         System.out.println("updating new load");
@@ -330,110 +329,35 @@ public class Controller {
         }
         possibilitiesBr.close();
     }
-    //Requires: Nothing
+    //Requires: use of the RemovePlant class
     //Modifies: File growList and File tempFile
     //Effects: removes a  plant from the growList, by writing to a tempFile and then copying the file over to the growList
     public void removePlantGrow(MouseEvent mouseEvent) throws IOException{
-        File inputFile = new File ("growList.txt");
-        File tempFile = new File ("tempFile.txt");
-
-        Object locateName = growScheduleList.getSelectionModel().getSelectedItem();
-        growScheduleList.getItems().remove(locateName);
-
-        System.out.println("Removing this: " + locateName);
-
-        FileReader fr = new FileReader(inputFile);
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-
-        //Write to a temporary file that we can copy back to later
-        FileWriter fileWrite = new FileWriter(tempFile);
-        BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
-
-        while ((line = br.readLine()) != null) {
-            System.out.println("line located: " + line + " located: " + locateName);
-            //When we locate the line, we can delete this from the list
-            if(line.equals(locateName)){
-                System.out.println("line located: " + line + " located: " + locateName);
-                System.out.println("line not written to temp file is: " + line);
-                //growScheduleList.getItems().remove(line);
-
-                /* Not going to remove as this does not remove the harvest list too
-                //Remove file from folder
-                File file = new File ("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
-                System.out.println(file.delete());
-
-                 */
-            }
-            else{
-                //Else, we write the file back into the list
-                System.out.println("wrote: " + line);
-                bufferWrite.write(line + "\r");
-            }
-        }
-        br.close();
-        bufferWrite.close();
-        CopyFile.copy("growList.txt", "tempFile.txt");
-        //deleteFile(locateName.toString());
+        String plantName = growScheduleList.getSelectionModel().getSelectedItem();
+        growScheduleList.getItems().remove(plantName);
+        // Remove plant by using class:
+        RemovePlant.removePlant("growList.txt", plantName);
         clearGrow();
     }
 
-    //Requires: Nothing
+    //Requires: use of the RemovePlant class
     //Modifies: File harvestList and File tempFile
     //Effects: removes a  plant from the harvestList, by writing to a tempFile and then copying the file over to the harvestList
     public void removePlantHarvest(MouseEvent mouseEvent) throws IOException{
-        File inputFile = new File ("harvestList.txt");
-        File tempFile = new File ("tempFile.txt");
-
-        Object locateName = harvestScheduleList.getSelectionModel().getSelectedItem();
-        harvestScheduleList.getItems().remove(locateName);
-
-        System.out.println("Removing this: " + locateName);
-
-        FileReader fr = new FileReader(inputFile);
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-
-        //Write to a temporary file that we can copy back to later
-        FileWriter fileWrite = new FileWriter(tempFile);
-        BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
-
-        while ((line = br.readLine()) != null) {
-            System.out.println("line located: " + line + " located: " + locateName);
-            //When we locate the line, we can delete this from the list
-            if(line.equals(locateName)){
-                System.out.println("line located: " + line + " located: " + locateName);
-                System.out.println("line not written to temp file is: " + line);
-                //harvestScheduleList.getItems().remove(line);
-
-                /* Not going to remove as this does not delete the grow list at the same time
-                //Remove file from folder
-                File file = new File ("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
-                System.out.println(file.delete());
-
-                 */
-            }
-            else{
-                //Else, we write the file back into the list
-                System.out.println("wrote: " + line);
-                bufferWrite.write(line + "\r");
-            }
-        }
-        br.close();
-        bufferWrite.close();
-        CopyFile.copy("harvestList.txt", "tempFile.txt");
-        //deleteFile(locateName.toString());
+        String plantName = harvestScheduleList.getSelectionModel().getSelectedItem();
+        harvestScheduleList.getItems().remove(plantName);
+        RemovePlant.removePlant("harvestList.txt", plantName);
         clearHarvest();
     }
 
-    //Requires: Nothing
+    //Requires: Use of the Video class
     //Modifies: Nothing
     //Effects: Plays the video and audio.
     public void playVideo(MouseEvent mouseEvent) {
         System.out.println("Playing demonstration video");
         howToUseLabel.setText("Video has opened in another stage");
+        //Instantiate new video when user presses playVideo button
         Video.playVideo();
-
     }
 
     //Requires: Nothing
