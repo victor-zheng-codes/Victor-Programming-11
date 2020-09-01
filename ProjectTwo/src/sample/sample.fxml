@@ -74,16 +74,16 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="growAlerts" layoutX="62.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ListView fx:id="harvestAlerts" layoutX="308.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Label layoutX="262.0" layoutY="30.0" text="Alerts">
+                  <ListView fx:id="growAlerts" layoutX="42.0" layoutY="138.0" prefHeight="200.0" prefWidth="236.0" />
+                  <ListView fx:id="harvestAlerts" layoutX="292.0" layoutY="138.0" prefHeight="200.0" prefWidth="238.0" />
+                  <Label layoutX="239.0" layoutY="32.0" text="Alerts">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="191.0" layoutY="65.0" prefHeight="18.0" prefWidth="228.0" text="Check the closest alerts to today" />
-                  <Label layoutX="131.0" layoutY="114.0" text="Grow Alerts" />
-                  <Label layoutX="371.0" layoutY="114.0" text="Harvest Alerts" />
+                  <Label layoutX="171.0" layoutY="67.0" prefHeight="18.0" prefWidth="228.0" text="Check the closest alerts to today" />
+                  <Label layoutX="121.0" layoutY="114.0" text="Grow Alerts" />
+                  <Label layoutX="362.0" layoutY="114.0" text="Harvest Alerts" />
                </children></AnchorPane>
       </content>
     </Tab>

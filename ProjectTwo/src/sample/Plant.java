@@ -22,164 +22,26 @@ public class Plant {
     //Modifies: nothing
     //Effects: Adds a new list name into the plantsList
     public void writeToGrowList() throws IOException{
-        /*
+
         System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to growList");
         FileWriter fw = new FileWriter("growList.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
-
         bw.write(name + "\r");
         bw.close();
-         */
-        ArrayList<String> comparedList = new ArrayList<String>();
 
-        System.out.println("writing: " + name + " to growList");
-        FileReader fr = new FileReader("growList.txt");
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        int counter = 0;
-
-        while((line = br.readLine()) != null) {
-            System.out.println("Reading this line: " + line);
-            FileReader newFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
-            BufferedReader newBr = new BufferedReader(newFr);
-            String newLine;
-            while((newLine = newBr.readLine()) != null){
-                counter ++;
-                if(counter == 2){
-                    System.out.println("compare date is: " + newLine);
-                    if(compareDates(startDate, newLine)){
-                        comparedList.add(line);
-                        System.out.println("Compared True");
-                        System.out.println("Compared list is now: " + comparedList);
-                    }
-                    else{
-                        System.out.println("Compared False");
-                        comparedList.add(name);
-                    }
-                    //Write to grow List file as the earlier date, and the previous date as the latter date
-                    FileWriter fw = new FileWriter("growList.txt", true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    for(int i = 0; i < comparedList.size(); i++){
-                        bw.write(comparedList.get(i) + "\r");
-                    }
-                    bw.close();
-                }
-                else{
-                    System.out.println("Counter not equal to 2, counter is: " + counter);
-                }
-                //counter = 0;
-            }
-        }
     }
 
     public void writeToHarvestList() throws IOException{
-        ArrayList<String> comparedList = new ArrayList<String>();
 
-
+        System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to harvestList");
-        FileReader fr = new FileReader("harvestList.txt");
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        int counter = 0;
+        FileWriter fw = new FileWriter("harvestList.txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(name + "\r");
+        bw.close();
 
-        while((line = br.readLine()) != null) {
-            System.out.println("Reading this line: " + line);
-            FileReader newFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + line + ".txt");
-            BufferedReader newBr = new BufferedReader(newFr);
-            String newLine;
-            while((newLine = newBr.readLine()) != null){
-                counter ++;
-                if(counter == 3){
-                    System.out.println("compare date is: " + newLine);
-                    if(compareDates(harvestDate, newLine)){
-                        System.out.println("Compared True");
-                        comparedList.add(line);
-                    }
-                    else{
-
-                        System.out.println("Compared False");
-                        comparedList.add(name);
-                    }
-                    //Write to harvestList file as the earlier date, and the previous date as the latter date
-                    FileWriter fw = new FileWriter("harvestList.txt", true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-
-                    for(int i = 0; i < comparedList.size(); i++){
-                        bw.write(comparedList.get(i) + "\r");
-                    }
-                    bw.close();
-                }
-                else{
-                    System.out.println("Counter not equal to 3, counter is: " + counter);
-                }
-                //counter = 0;
-            }
-        }
     }
-
-    //Requires: Nothing
-    //Modifies: Nothing
-    //Effects: Compares two dates, returns true if first date is greater/farther out than the second
-    public static boolean compareDates(String firstDate, String comparedDate){
-        //Prompt Question: Is the first date bigger than the second, eg 2020-08-22 > 2020-08-02. Therefore true is returned
-        System.out.println("Comparing these dates: " + firstDate + " and " + comparedDate);
-        //Has to be less the 10 which is the length of the date
-        int yearFirst = Integer.parseInt(firstDate.substring(0,4));
-        int monthFirst = Integer.parseInt(firstDate.substring(5,7));
-        int dayFirst = Integer.parseInt(firstDate.substring(8,10));
-
-        System.out.println("year is: " + yearFirst + " month is: "+ monthFirst + " day is: " + dayFirst);
-
-        int yearCompared = Integer.parseInt(comparedDate.substring(0,4));
-        int monthCompared = Integer.parseInt(comparedDate.substring(5,7));
-        int dayCompared = Integer.parseInt(comparedDate.substring(8,10));
-
-        System.out.println("year is: " + yearCompared + " month is: " + monthCompared + " day is: " + dayCompared);
-
-        if(yearFirst > yearCompared){
-            System.out.println("year first is greater than year compared");
-            return true;
-        }
-        if(yearFirst < yearCompared){
-            System.out.println("year first is less than year compared");
-            return false;
-        }
-
-        else{
-            System.out.println("equivalent years, checking month next");
-            if(monthFirst > monthCompared){
-                System.out.println("month first is greater than the month compared");
-                return true;
-            }
-            if(monthFirst < monthCompared){
-                System.out.println("month first is less than the month compared");
-                return false;
-            }
-            else{
-                System.out.println("equivalent months, checking day next");
-                if(dayFirst > dayCompared){
-                    System.out.println("dayFirst is greater than the compared day");
-                    return true;
-                }
-                if(dayFirst< dayCompared){
-                    System.out.println("dayFirst is less than the compared day");
-                    return false;
-                }
-                if(dayFirst == dayCompared){
-                    System.out.println("equivalent days, true");
-                    return true;
-                }
-                else{
-                    System.out.println("ERROR ERROR ERROR: did not find ");
-                }
-            }
-        }
-
-
-        return false;
-    }
-
     //Requires: String fileName that we are writing to, boolean append as true or false
     //Modifies: fileName, this
     //Effects: writes the name, age, grade, skills, and traits of this friend to the specified file
