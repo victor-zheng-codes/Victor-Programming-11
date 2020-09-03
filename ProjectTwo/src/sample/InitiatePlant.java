@@ -1,11 +1,5 @@
 package sample;
-
-import javafx.scene.input.MouseEvent;
-
 import java.io.*;
-import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class InitiatePlant {
     private String name;

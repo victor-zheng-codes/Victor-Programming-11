@@ -1,7 +1,6 @@
 package sample;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class RemovePlant {
     private static FileReader fr;
@@ -38,8 +37,6 @@ public class RemovePlant {
         br.close();
         bufferWrite.close();
         CopyFile.copy(fileName, "tempFile.txt");
-
     }
-
 }
 

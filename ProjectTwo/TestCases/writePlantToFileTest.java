@@ -1,16 +1,12 @@
-import com.sun.org.apache.xml.internal.security.Init;
 import org.junit.Before;
 import org.junit.Test;
-import sample.LoadPlants;
 import sample.InitiatePlant;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class writePlantToFileTest {
     @Before

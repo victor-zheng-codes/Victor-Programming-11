@@ -134,8 +134,8 @@
                   <Label layoutX="34.0" layoutY="61.0" text="Quick Create:" />
                   <VBox layoutX="22.0" layoutY="306.0" prefHeight="78.0" prefWidth="534.0">
                      <children>
-                        <Label graphicTextGap="0.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="382.0" text="Quick Create is a tool that provides the recommended dates " textFill="#f21111" />
-                        <Label layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="600.0" text="for growing and harvesting plants according to West Coast Seeds for Coastal BC" textFill="#f21111" />
+                        <Label graphicTextGap="0.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="382.0" text="Quick Create is a tool that provides the recommended dates for growing and " textFill="#f21111" />
+                        <Label layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="600.0" text="harvesting plants according to West Coast Seeds for the Lower Mainland" textFill="#f21111" />
                      </children>
                   </VBox>
                   <Label fx:id="createPlantLabel" layoutX="352.0" layoutY="282.0" prefHeight="18.0" prefWidth="212.0" text="Load from file to enable " textFill="#0014ff" />

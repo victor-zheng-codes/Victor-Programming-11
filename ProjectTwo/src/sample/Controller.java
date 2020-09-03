@@ -2,17 +2,11 @@ package sample;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -26,7 +20,6 @@ public class Controller {
     public DatePicker harvestEstimate;
     public DatePicker startDate;
 
-    //public DatePicker startDate;
     public Label plantNameShow;
     public Label growDateShow;
     public Label notesShow;
@@ -35,7 +28,6 @@ public class Controller {
     public Label notesShowHarvest;
     public HBox harvestScheduleView;
     public HBox growScheduleView;
-    //Init to alerts class
     public ListView<String> harvestAlerts = new ListView<>();
     public ListView<String> growAlerts = new ListView<>();
     public Button createPlantButton;
@@ -89,7 +81,6 @@ public class Controller {
     //Effects: creates a new plant and saves it to file
     public void createPlant(ActionEvent actionEvent) throws IOException{
         String name = plantName.getText();
-
         //Determine if the new plant is already in either list
         //If true, then display the label telling user that there is a duplicate
         if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
@@ -97,16 +88,13 @@ public class Controller {
             createPlantLabel.setText("Plant already in a list");
             //Use Color library to find a green colour for the label
             createPlantLabel.setTextFill(Color.web("#FFC300"));
-
         }
-
         //If statement to determine if user has not entered the name, or either dates, or notes.
         else if(plantName.getText().isEmpty() || startDate.getValue() == null || harvestEstimate.getValue() == null || notesOnPlant.getText().isEmpty()){
             System.out.println("Missing an input");
             createPlantLabel.setTextFill(Color.web("#FF00FB"));
             createPlantLabel.setText("Missing an input");
         }
-
         else{
             createPlantLabel.setText("");
             //Disable the quick create list view for creation of more plants
@@ -180,7 +168,6 @@ public class Controller {
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
-        String notes = "";
 
         while ((line = br.readLine()) != null) {
             counter ++;
@@ -196,7 +183,6 @@ public class Controller {
                 String insert = line.substring(0,line.length()-1);
                 growDateShow.setText(insert);
             }
-            //Notes Line
             //Created an approach that finds the first 3 spaces, and creates a new line if there is less than 3 spaces.
             //Ensures better separation for each plant
             int countTotal = 0;
@@ -318,9 +304,8 @@ public class Controller {
         }
         harvestbr.close();
 
-
         //Load all the possibilities out onto quick create
-        FileReader possibilitiesFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\possibilitiesList.txt");
+        FileReader possibilitiesFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\possibilitiesList.txt");
         BufferedReader possibilitiesBr = new BufferedReader(possibilitiesFr);
         String possibilities;
         while ((possibilities = possibilitiesBr.readLine()) != null) {
@@ -367,19 +352,16 @@ public class Controller {
         System.out.println("Quick Create Running");
         clearCreate();
         String name = quickCreateListView.getSelectionModel().getSelectedItem().toString();
-
         if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
             System.out.println("Plant already in a list");
             createPlantLabel.setText("Plant already in a list");
         }
-
         else{
             createPlantLabel.setText("");
             FileReader frTemp = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\" + name + ".txt");
             BufferedReader brTemp = new BufferedReader(frTemp);
             int counter = 0;
             String line;
-
             while ((line = brTemp.readLine()) != null) {
                 System.out.println(line);
                 counter ++;
@@ -392,13 +374,11 @@ public class Controller {
                     String insert = line.substring(0,line.length()-1);
                     //LocalDate date = LocalDate.now();
                     LocalDate localDate = LocalDate.parse(insert);
-
                     startDate.setValue(localDate);
                 }
                 if(counter == 3){
                     //LocalDate date = LocalDate.of(2020,9,13);
                     String insert = line.substring(0,line.length()-1);
-
                     LocalDate localDate = LocalDate.parse(insert);
                     harvestEstimate.setValue(localDate);
                 }
@@ -407,26 +387,31 @@ public class Controller {
                     notesOnPlant.setText(insert);
                 }
             }
-            //quickCreateListView.setDisable(true);
         }
     }
 
-    //Requires: nothing
+    //Requires: use of RemovePlant class
     //Modifies: nothing
     //Effects: Deletes selected file from grow listView
     public void permanentlyDeleteViaGrow(MouseEvent mouseEvent) throws IOException{
         //Delete from both the grow and harvest lists
-        Object locateName = growScheduleList.getSelectionModel().getSelectedItem();
-        harvestScheduleList.getItems().remove(locateName);
-        growScheduleList.getItems().remove(locateName);
-
-
-        String fileName = locateName.toString();
+        String plantName = growScheduleList.getSelectionModel().getSelectedItem();
+        harvestScheduleList.getItems().remove(plantName);
+        growScheduleList.getItems().remove(plantName);
+        String fileName = plantName.toString();
 
         File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
         System.out.println(newFile.getAbsolutePath());
         System.out.println(newFile.delete());
+        RemovePlant.removePlant("growList.txt", plantName);
 
+        //Try to remove the name from the grow list too, we do not know if it is there
+        try {
+            RemovePlant.removePlant("harvestList.txt", plantName);
+            System.out.println("Removed from harvestList.txt");
+        }catch (Exception e){
+            System.out.println("Did not remove from harvestList.txt, likely already removed");
+        }
     }
 
     //Requires: nothing
@@ -434,13 +419,22 @@ public class Controller {
     //Effects: Deletes selected file from harvest listView
     public void permanentlyDeleteViaHarvest(MouseEvent mouseEvent) throws IOException{
         //Delete from both the grow and harvest lists
-        Object locateName = harvestScheduleList.getSelectionModel().getSelectedItem();
-        harvestScheduleList.getItems().remove(locateName);
-        growScheduleList.getItems().remove(locateName);
+        String plantName = harvestScheduleList.getSelectionModel().getSelectedItem();
+        harvestScheduleList.getItems().remove(plantName);
+        growScheduleList.getItems().remove(plantName);
 
-        String fileName = locateName.toString();
+        String fileName = plantName.toString();
         File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
         System.out.println(newFile.getAbsolutePath());
         System.out.println(newFile.delete());
+        RemovePlant.removePlant("harvestList.txt", plantName);
+
+        //Try to remove the name from the grow list too, we do not know if it is there
+        try {
+            RemovePlant.removePlant("growList.txt", plantName);
+            System.out.println("Removed from growList.txt");
+        }catch (Exception e){
+            System.out.println("Did not remove from growList.txt, likely already removed");
+        }
     }
 }
