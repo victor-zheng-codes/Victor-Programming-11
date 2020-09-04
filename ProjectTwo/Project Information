@@ -19,6 +19,7 @@ This was something that I pursued, but due to time constraints, decided to leave
 As for the programming,
 I have used Junit 4.12 because the Junit 5.0 Snapshot did not work for some reason.
 I suspect it might be the fact that I am using an earlier version of Java JDK.
+I have used different methods that were not taught in this class like try and except, which I had used before in robotics.
 You may also need to change the path for the files. As I created different folders for plant possibilities, and actual plants grown.
     For example,
     Currently, the file path for some files are listed as:

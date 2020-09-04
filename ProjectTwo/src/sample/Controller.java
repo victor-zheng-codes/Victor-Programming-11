@@ -115,8 +115,8 @@ public class Controller {
             harvestScheduleList.getItems().add(newPlant.getName());
             plantsList.getItems().add(newPlant);
 
-            growAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getStartDate());
-            harvestAlerts.getItems().add(newPlant.getName() + " ---- " + newPlant.getHarvestDate());
+            growAlerts.getItems().add(newPlant.getName() + " -- " + newPlant.getStartDate());
+            harvestAlerts.getItems().add(newPlant.getName() + " -- " + newPlant.getHarvestDate());
             //Clear the create fields for the next plant
             clearCreate();
             ObservableList<InitiatePlant> plantListings = plantsList.getItems();
@@ -314,27 +314,6 @@ public class Controller {
         }
         possibilitiesBr.close();
     }
-    //Requires: use of the RemovePlant class
-    //Modifies: File growList and File tempFile
-    //Effects: removes a  plant from the growList, by writing to a tempFile and then copying the file over to the growList
-    public void removePlantGrow(MouseEvent mouseEvent) throws IOException{
-        String plantName = growScheduleList.getSelectionModel().getSelectedItem();
-        growScheduleList.getItems().remove(plantName);
-        // Remove plant by using class:
-        RemovePlant.removePlant("growList.txt", plantName);
-        clearGrow();
-    }
-
-    //Requires: use of the RemovePlant class
-    //Modifies: File harvestList and File tempFile
-    //Effects: removes a  plant from the harvestList, by writing to a tempFile and then copying the file over to the harvestList
-    public void removePlantHarvest(MouseEvent mouseEvent) throws IOException{
-        String plantName = harvestScheduleList.getSelectionModel().getSelectedItem();
-        harvestScheduleList.getItems().remove(plantName);
-        RemovePlant.removePlant("harvestList.txt", plantName);
-        clearHarvest();
-    }
-
     //Requires: Use of the Video class
     //Modifies: Nothing
     //Effects: Plays the video and audio.
@@ -389,7 +368,28 @@ public class Controller {
             }
         }
     }
+    //Requires: use of the RemovePlant class
+    //Modifies: File growList and File tempFile
+    //Effects: removes a  plant from the growList, by writing to a tempFile and then copying the file over to the growList
+    public void removePlantGrow(MouseEvent mouseEvent) throws IOException{
+        String plantName = growScheduleList.getSelectionModel().getSelectedItem();
+        growScheduleList.getItems().remove(plantName);
+        // Remove plant by using class:
+        RemovePlant.removePlant("growList.txt", plantName);
+        clearGrow();
+        removeAlert(plantName, true, false);
 
+    }
+    //Requires: use of the RemovePlant class
+    //Modifies: File harvestList and File tempFile
+    //Effects: removes a  plant from the harvestList, by writing to a tempFile and then copying the file over to the harvestList
+    public void removePlantHarvest(MouseEvent mouseEvent) throws IOException{
+        String plantName = harvestScheduleList.getSelectionModel().getSelectedItem();
+        harvestScheduleList.getItems().remove(plantName);
+        RemovePlant.removePlant("harvestList.txt", plantName);
+        clearHarvest();
+        removeAlert(plantName, false, true);
+    }
     //Requires: use of RemovePlant class
     //Modifies: nothing
     //Effects: Deletes selected file from grow listView
@@ -398,19 +398,44 @@ public class Controller {
         String plantName = growScheduleList.getSelectionModel().getSelectedItem();
         harvestScheduleList.getItems().remove(plantName);
         growScheduleList.getItems().remove(plantName);
-        String fileName = plantName.toString();
 
-        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
-        System.out.println(newFile.getAbsolutePath());
-        System.out.println(newFile.delete());
-        RemovePlant.removePlant("growList.txt", plantName);
+        removeAlert(plantName, true, true);
 
-        //Try to remove the name from the grow list too, we do not know if it is there
-        try {
-            RemovePlant.removePlant("harvestList.txt", plantName);
-            System.out.println("Removed from harvestList.txt");
-        }catch (Exception e){
-            System.out.println("Did not remove from harvestList.txt, likely already removed");
+        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ plantName + ".txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        int counter = 0;
+
+        while ((line = br.readLine()) != null) {
+            counter++;
+            System.out.println("counter" + counter);
+            System.out.println("line: " + line);
+            // Counter needs to be 2 for grow date
+            if (counter == 2) {
+                line = line.substring(0, line.length()-1);
+                growAlerts.getItems().remove(plantName + " -- " + line);
+                System.out.println("removed from grow alerts");
+            }
+            if (counter == 3) {
+                try {
+                    line = line.substring(0, line.length()-1);
+                    harvestAlerts.getItems().remove(plantName + " -- " + line);
+                } catch (Exception e) {
+                    System.out.println("Did not remove from harvest alert because already removed");
+                }
+            }
+            File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
+            System.out.println(newFile.getAbsolutePath());
+            System.out.println(newFile.delete());
+            RemovePlant.removePlant("growList.txt", plantName);
+
+            //Try to remove the name from the grow list too, we do not know if it is there
+            try {
+                RemovePlant.removePlant("harvestList.txt", plantName);
+                System.out.println("Removed from harvestList.txt");
+            } catch (Exception e) {
+                System.out.println("Did not remove from harvestList.txt, likely already removed");
+            }
         }
     }
 
@@ -422,9 +447,9 @@ public class Controller {
         String plantName = harvestScheduleList.getSelectionModel().getSelectedItem();
         harvestScheduleList.getItems().remove(plantName);
         growScheduleList.getItems().remove(plantName);
+        removeAlert(plantName, true, true);
 
-        String fileName = plantName.toString();
-        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", fileName + ".txt");
+        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
         System.out.println(newFile.getAbsolutePath());
         System.out.println(newFile.delete());
         RemovePlant.removePlant("harvestList.txt", plantName);
@@ -435,6 +460,39 @@ public class Controller {
             System.out.println("Removed from growList.txt");
         }catch (Exception e){
             System.out.println("Did not remove from growList.txt, likely already removed");
+        }
+    }
+    //Requires: String of the plant, Boolean for both grow and harvest to determine if should delete
+    //Modifies: ListView of either grow or harvest alerts
+    //Effects: Deletes selected alert from either grow or delete
+    public void removeAlert(String plantName, Boolean growDelete, Boolean harvestDelete) throws IOException {
+        System.out.println("Grow, Harvest remove: " + growDelete + harvestDelete);
+        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + plantName + ".txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        int counter = 0;
+        while ((line = br.readLine()) != null) {
+            counter++;
+            if (counter == 2 && growDelete){
+                // Try removing from grow list
+                try {
+                    line = line.substring(0, line.length() - 1);
+                    growAlerts.getItems().remove(plantName + " -- " + line);
+                    System.out.println("removed grow alert");
+                } catch (Exception e) {
+                    System.out.println("Did not remove from grow alert because already removed");
+                }
+            }
+            // Counter needs to be 3 for harvest date
+            if (counter == 3 && harvestDelete) {
+                try {
+                    line = line.substring(0, line.length() - 1);
+                    harvestAlerts.getItems().remove(plantName + " -- " + line);
+                    System.out.println("removed harvest alert");
+                } catch (Exception e) {
+                    System.out.println("Did not remove from grow alert because already removed");
+                }
+            }
         }
     }
 }
