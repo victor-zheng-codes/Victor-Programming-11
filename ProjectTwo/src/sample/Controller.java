@@ -450,46 +450,21 @@ public class Controller {
 
         // run the remove alert method, making sure to delete both the grow and harvest alerts
         removeAlert(plantName, true, true);
+        // Delete the file from the project/from file
+        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
+        System.out.println(newFile.delete());
+        // Remove the plant from the growList
+        RemovePlant.removePlant("growList.txt", plantName);
 
-        // Start a fileReader to read each line in from the file
-        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ plantName + ".txt");
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        int counter = 0;
-
-        while ((line = br.readLine()) != null) {
-            counter++;
-            System.out.println("counter" + counter);
-            System.out.println("line: " + line);
-            // Counter needs to be 2 for grow date
-            if (counter == 2) {
-                line = line.substring(0, line.length()-1);
-                growAlerts.getItems().remove(plantName + " -- " + line);
-                System.out.println("removed from grow alerts");
-            }
-            if (counter == 3) {
-                try {
-                    line = line.substring(0, line.length()-1);
-                    harvestAlerts.getItems().remove(plantName + " -- " + line);
-                } catch (Exception e) {
-                    System.out.println("Did not remove from harvest alert because already removed");
-                }
-            }
-            File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
-            System.out.println(newFile.getAbsolutePath());
-            System.out.println(newFile.delete());
-            RemovePlant.removePlant("growList.txt", plantName);
-
-            //Try to remove the name from the grow list too, we do not know if it is there
-            try {
-                RemovePlant.removePlant("harvestList.txt", plantName);
-                System.out.println("Removed from harvestList.txt");
-            } catch (Exception e) {
-                System.out.println("Did not remove from harvestList.txt, likely already removed");
-            }
+        //Try to remove the name from the harvest list too, we do not know if it is there
+        try {
+            RemovePlant.removePlant("harvestList.txt", plantName);
+            System.out.println("Removed from harvestList.txt");
+        } catch (Exception e) { // This will occur when the plant has already been removed from the harvestList
+            System.out.println("Did not remove from harvestList.txt, likely already removed");
         }
-    }
 
+    }
     //Requires: nothing
     //Modifies: nothing
     //Effects: Deletes selected file from harvest listView
@@ -501,17 +476,17 @@ public class Controller {
 
         // run the remove alert method, making sure to delete both the grow and harvest alerts
         removeAlert(plantName, true, true);
-
+        // Delete the file from the project/from file
         File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
-        System.out.println(newFile.getAbsolutePath());
         System.out.println(newFile.delete());
+        // Remove the plant from the harvestList
         RemovePlant.removePlant("harvestList.txt", plantName);
 
         //Try to remove the name from the grow list too, we do not know if it is there
         try {
             RemovePlant.removePlant("growList.txt", plantName);
             System.out.println("Removed from growList.txt");
-        }catch (Exception e){
+        }catch (Exception e){ // This will occur when the plant has already been removed from the growList
             System.out.println("Did not remove from growList.txt, likely already removed");
         }
     }
@@ -520,29 +495,34 @@ public class Controller {
     //Effects: Deletes selected alert from either grow or delete
     public void removeAlert(String plantName, Boolean growDelete, Boolean harvestDelete) throws IOException {
         System.out.println("Grow, Harvest remove: " + growDelete + harvestDelete);
+        // Start a new fileReader for the plant that needs to be removed.
         FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + plantName + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
+
+        // Since alerts have both the name, and either the grow or harvest date, we need to loop through each line.
         while ((line = br.readLine()) != null) {
             counter++;
-            if (counter == 2 && growDelete){
-                // Try removing from grow list
+            // When counter == 2, this line is the grow date.
+            if (counter == 2 && growDelete){ // Run this only if growDelete Boolean is true
+                // Try removing from grow list, as we are not certain if it has already been removed
                 try {
                     line = line.substring(0, line.length() - 1);
                     growAlerts.getItems().remove(plantName + " -- " + line);
                     System.out.println("removed grow alert");
-                } catch (Exception e) {
+                } catch (Exception e) { // occurs when this plant has already been removed when deleting only the grow list of the plant.
                     System.out.println("Did not remove from grow alert because already removed");
                 }
             }
-            // Counter needs to be 3 for harvest date
-            if (counter == 3 && harvestDelete) {
+            // When counter == 3, this line is the harvest date.
+            if (counter == 3 && harvestDelete) { // Run this only if harvestDelete Boolean is true
+                // Try removing from grow list, as we are not certain if it has already been removed
                 try {
                     line = line.substring(0, line.length() - 1);
                     harvestAlerts.getItems().remove(plantName + " -- " + line);
                     System.out.println("removed harvest alert");
-                } catch (Exception e) {
+                } catch (Exception e) { // occurs when this plant has already been removed when deleting only the harvest list of the plant.
                     System.out.println("Did not remove from grow alert because already removed");
                 }
             }
