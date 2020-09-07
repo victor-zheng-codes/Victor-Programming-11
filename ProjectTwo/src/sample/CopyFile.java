@@ -1,5 +1,4 @@
 package sample;
-
 import java.io.*;
 
 public class CopyFile {
@@ -12,13 +11,14 @@ public class CopyFile {
         FileWriter fileWrite = new FileWriter(copiedTo);
         BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
 
-        // Read the file that needs to be compied from
+        // Read the file that needs to be copied from
         FileReader frTemp = new FileReader(copiedFrom);
         BufferedReader brTemp = new BufferedReader(frTemp);
 
         String line;
-
+        // Read each line in the original file
         while ((line = brTemp.readLine()) != null) {
+            // Write each line into the file that needs to be copied to
             bufferWrite.write(line + "\r");
         }
         bufferWrite.close();

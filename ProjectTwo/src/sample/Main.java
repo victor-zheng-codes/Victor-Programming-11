@@ -17,10 +17,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
+    // Create the primary stage for the main controller
     public void start(Stage primaryStage) throws Exception{
+        // Link up the sample.fxml with this stage
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root, 569, 429);
-
         primaryStage.setScene(scene);
         primaryStage.setTitle("Garden Scheduler");
         primaryStage.show();

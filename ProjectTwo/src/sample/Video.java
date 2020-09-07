@@ -11,11 +11,13 @@ import java.io.File;
 
 public class Video {
 
+    //Requires: nothing
+    //Modifies: nothing
+    //Effects: Retrieves a video and opens it in a new stage
     public static void playVideo() {
-
+        // Create a new stage to play video on
         Stage newStage = new Stage();
         // Create the media source.
-        //String source = getParameters().getRaw().get(0);
         File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\Garden_Video3.mp4");
         Media m = new Media(f.toURI().toString());
 
@@ -23,13 +25,14 @@ public class Video {
         MediaPlayer mediaPlayer = new MediaPlayer(m);
         mediaPlayer.setAutoPlay(true);
 
-        // Create the view and add it to the Scene.
+        // Create the view and add the media tp ot.
         MediaView mediaView = new MediaView(mediaPlayer);
 
-        //stage.setScene(new Scene(root, 680, 400));
+        // Store the mediaView inside a vertical box
         VBox mediaArea = new VBox(mediaView);
+        // Create a new scene for the VBox
         Scene scene = new Scene(mediaArea, 640, 500);
-
+        // Set the new scene with title and play the video
         newStage.setScene(scene);
         newStage.setTitle("Demonstration Video");
         newStage.show();
