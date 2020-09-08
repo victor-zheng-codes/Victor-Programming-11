@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,6 +27,9 @@
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#7e62dd" height="53.18" radius="29.9625" width="68.67" />
+                     </effect>
                   </Label>
                   <Label layoutX="127.0" layoutY="95.0" text="Reminders for when to grow and harvest your plants" />
                   <ImageView fitHeight="130.0" fitWidth="217.0" layoutX="70.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
@@ -42,6 +46,9 @@
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#2d259c" />
+                     </effect>
                   </Button>
                </children></AnchorPane>
 
@@ -51,12 +58,21 @@
       <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="29.0" layoutY="45.0" text="How to use this application" />
-                  <Button fx:id="mediaView" layoutX="29.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#playVideo" prefHeight="56.0" prefWidth="131.0" text="Play Video">
+                  <Label layoutX="29.0" layoutY="32.0" text="How to use this application">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#8fe590" />
+                     </effect></Label>
+                  <Button fx:id="mediaView" layoutX="29.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#playVideo" prefHeight="56.0" prefWidth="131.0" text="Play Video">
                      <font>
                         <Font size="14.0" />
-                     </font></Button>
-                  <Label fx:id="howToUseLabel" layoutX="35.0" layoutY="185.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#8fe590" height="29.94" radius="15.212499999999999" width="32.91" />
+                     </effect></Button>
+                  <Label fx:id="howToUseLabel" layoutX="300.0" layoutY="60.0" />
                    <ImageView fitHeight="288.0" fitWidth="313.0" layoutX="207.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
                        <image>
                            <Image url="@introPhoto.jpg" />
@@ -74,14 +90,23 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="growAlerts" layoutX="42.0" layoutY="138.0" prefHeight="200.0" prefWidth="236.0" />
-                  <ListView fx:id="harvestAlerts" layoutX="292.0" layoutY="138.0" prefHeight="200.0" prefWidth="238.0" />
+                  <ListView fx:id="growAlerts" layoutX="42.0" layoutY="138.0" prefHeight="200.0" prefWidth="236.0">
+                     <effect>
+                        <DropShadow color="#c7a871" height="28.15" radius="15.362499999999999" width="35.3" />
+                     </effect></ListView>
+                  <ListView fx:id="harvestAlerts" layoutX="292.0" layoutY="138.0" prefHeight="200.0" prefWidth="238.0">
+                     <effect>
+                        <DropShadow color="#c7a871" height="28.15" radius="15.362499999999999" width="35.3" />
+                     </effect></ListView>
                   <Label layoutX="239.0" layoutY="32.0" text="Alerts">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#c7a871" height="24.58" radius="20.427500000000002" width="59.13" />
+                     </effect>
                   </Label>
-                  <Label layoutX="171.0" layoutY="67.0" prefHeight="18.0" prefWidth="228.0" text="Check the closest alerts to today" />
+                  <Label layoutX="161.0" layoutY="67.0" prefHeight="18.0" prefWidth="248.0" text="Quickly view your alerts side by side" />
                   <Label layoutX="121.0" layoutY="114.0" text="Grow Alerts" />
                   <Label layoutX="362.0" layoutY="114.0" text="Harvest Alerts" />
                </children></AnchorPane>
@@ -95,6 +120,9 @@
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#dd62b8" />
+                     </effect>
                   </Label>
                   <HBox layoutX="234.0" layoutY="16.0" prefHeight="260.0" prefWidth="326.0">
                      <children>
@@ -122,6 +150,9 @@
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
+                                 <effect>
+                                    <DropShadow color="#dd62b8" />
+                                 </effect>
                               </Button>
                            </children>
                            <padding>
@@ -130,7 +161,10 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <ListView fx:id="quickCreateListView" layoutX="34.0" layoutY="91.0" onMouseClicked="#quickCreate" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="quickCreateListView" layoutX="34.0" layoutY="91.0" onMouseClicked="#quickCreate" prefHeight="200.0" prefWidth="200.0">
+                     <effect>
+                        <DropShadow color="#dd62b8" />
+                     </effect></ListView>
                   <Label layoutX="34.0" layoutY="61.0" text="Quick Create:" />
                   <VBox layoutX="22.0" layoutY="306.0" prefHeight="78.0" prefWidth="534.0">
                      <children>
@@ -146,12 +180,18 @@
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="growScheduleList" layoutX="25.0" layoutY="109.0" onMouseClicked="#viewGrowList" prefHeight="200.0" prefWidth="177.0" />
+                  <ListView fx:id="growScheduleList" layoutX="25.0" layoutY="115.0" onMouseClicked="#viewGrowList" prefHeight="200.0" prefWidth="177.0">
+                     <effect>
+                        <DropShadow color="#3bbab8" height="28.15" radius="11.7875" />
+                     </effect></ListView>
                   <Label layoutX="25.0" layoutY="74.0" text="This is the schedule for when you need to start growing your plants" />
                   <Label layoutX="25.0" layoutY="28.0" text="Check your grow schedule">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#3bbab8" />
+                     </effect>
                   </Label>
                   <HBox fx:id="growScheduleView" layoutX="212.0" layoutY="137.0" prefHeight="172.0" prefWidth="338.0">
                      <children>
@@ -196,8 +236,14 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="removePlantGrowButton" layoutX="235.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#removePlantGrow" prefHeight="26.0" prefWidth="218.0" text="Remove plant from grow list" visible="false" />
-                  <Button fx:id="permanentlyDeleteButtonGrow" layoutX="284.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#permanentlyDeleteViaGrow" text="Permanently Delete" visible="false" />
+                  <Button fx:id="removePlantGrowButton" layoutX="235.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#removePlantGrow" prefHeight="26.0" prefWidth="218.0" text="Remove plant from grow list" visible="false">
+                     <effect>
+                        <DropShadow color="#3bbab8" />
+                     </effect></Button>
+                  <Button fx:id="permanentlyDeleteButtonGrow" layoutX="284.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#permanentlyDeleteViaGrow" text="Permanently Delete" visible="false">
+                     <effect>
+                        <DropShadow color="#3bbab8" />
+                     </effect></Button>
                </children></AnchorPane>
         </content>
     </Tab>
@@ -209,9 +255,12 @@
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <effect>
+                        <DropShadow color="#e86060" />
+                     </effect>
                   </Label>
                   <Label layoutX="40.0" layoutY="54.0" text="This is the schedule for when you need to start harvesting your plants" />
-                   <HBox fx:id="harvestScheduleView" layoutX="236.0" layoutY="97.0" prefHeight="174.0" prefWidth="306.0">
+                   <HBox fx:id="harvestScheduleView" layoutX="242.0" layoutY="113.0" prefHeight="174.0" prefWidth="306.0">
                        <children>
                            <VBox alignment="TOP_RIGHT" prefHeight="174.0" prefWidth="144.0" spacing="15.0">
                                <children>
@@ -249,9 +298,18 @@
                            </VBox>
                        </children>
                    </HBox>
-                  <ListView fx:id="harvestScheduleList" layoutX="40.0" layoutY="108.0" onMouseClicked="#viewHarvestList" prefHeight="200.0" prefWidth="170.0" />
-                  <Button fx:id="removePlantHarvestButton" layoutX="242.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#removePlantHarvest" prefHeight="26.0" prefWidth="234.0" text="Remove plant from harvest list" visible="false" />
-                  <Button fx:id="permanentlyDeleteButtonHarvest" layoutX="276.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#permanentlyDeleteViaHarvest" prefHeight="26.0" prefWidth="166.0" text="Permanently delete" visible="false" />
+                  <ListView fx:id="harvestScheduleList" layoutX="40.0" layoutY="121.0" onMouseClicked="#viewHarvestList" prefHeight="200.0" prefWidth="170.0">
+                     <effect>
+                        <DropShadow color="#e86060" />
+                     </effect></ListView>
+                  <Button fx:id="removePlantHarvestButton" layoutX="242.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#removePlantHarvest" prefHeight="26.0" prefWidth="234.0" text="Remove plant from harvest list" visible="false">
+                     <effect>
+                        <DropShadow color="#e86060" />
+                     </effect></Button>
+                  <Button fx:id="permanentlyDeleteButtonHarvest" layoutX="276.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#permanentlyDeleteViaHarvest" prefHeight="26.0" prefWidth="166.0" text="Permanently delete" visible="false">
+                     <effect>
+                        <DropShadow color="#e86060" />
+                     </effect></Button>
                </children></AnchorPane>
         </content>
     </Tab>

@@ -14,7 +14,10 @@ the user would only be left with the plant in the harvest list.
 The user also has the ability to quickly view alerts, in which store either the grow, or harvest dates.
 
 In the future, an improvement could be in characterizing the plants based on the date from today.
-This was something that I pursued, but due to time constraints, decided to leave it out of this version. 
+This was something that I pursued, but due to time constraints, decided to leave it out of this version.
+Another future implementation could be in creating a Android app. I have seen people use
+IntelliJ IDEA with Java to create interesting apps. Since an android app is low-cost, this
+could be an interesting development for the future.
 
 As for the programming,
 I have used Junit 4.12 because the Junit 5.0 Snapshot did not work for some reason.

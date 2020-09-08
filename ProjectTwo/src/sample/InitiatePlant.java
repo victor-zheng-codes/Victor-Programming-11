@@ -55,7 +55,6 @@ public class InitiatePlant {
         bufferWrite.write(";\r");
         bufferWrite.close();
     }
-
     public String getName() {
         return name;
     }

@@ -1,10 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import sample.CopyFile;
-
 import java.io.*;
-import java.nio.Buffer;
-
 import static org.junit.Assert.*;
 
 public class copyTest {
@@ -13,13 +10,14 @@ public class copyTest {
     public void setup(){
         //clear the file that we are reading by deleting it
         File myFile = new File("copyFile.txt");
+        // Delete this file by running an if statement. myFile.delete() returns a Boolean
         if (myFile.delete()) {
             System.out.println("Deleted the file: " + myFile.getName());
-
         } else {
             //This means that the file was never there, so we can still create it
             System.out.println("Failed to delete the file.");
         }
+        // By doing the above code, either way, we end up without a file called copyFile.
     }
 
     @Test
@@ -30,7 +28,7 @@ public class copyTest {
         // copy a file that has 3 people's names to a file named copyFile
         CopyFile.copy("copyFile.txt", "testCopyFile.txt");
 
-        // read a pre created file that contains people
+        // read a pre created file that contains people.
         FileReader fr = new FileReader("testCopyFile.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;

@@ -3,6 +3,7 @@ package sample;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -118,17 +119,14 @@ public class Controller {
             growAlerts.getItems().add(newPlant.getName() + " -- " + newPlant.getStartDate());
             harvestAlerts.getItems().add(newPlant.getName() + " -- " + newPlant.getHarvestDate());
 
-            // Add the new plant to the plantsList
-            plantsList.getItems().add(newPlant);
-            ObservableList<InitiatePlant> plantListings = plantsList.getItems();
-
-            // Get each plant in the plantListings and write to file, write to grow list, and write to harvest list
-            for(InitiatePlant i : plantListings) {
-                System.out.println("writing this: " + i);
-                i.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
-                i.writeToGrowList();
-                i.writeToHarvestList();
-            }
+            // Write this new plant to file
+            System.out.println("writing this: " + locateName);
+            // First, write to a new file named after the plant with the name, grow date, harvest date, and notes.
+            newPlant.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
+            // Second, write the new plant to the grow list
+            newPlant.writeToGrowList();
+            // Thirdly, write the new plant to the harvest list
+            newPlant.writeToHarvestList();
             //Clear the create fields for the next plant
             clearCreate();
         }
@@ -171,6 +169,8 @@ public class Controller {
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
+        int spaceFinding = 0;
+
         // Read through each line in the file
         while ((line = br.readLine()) != null) {
             counter ++; // Add one to the counter for each iteration
@@ -191,9 +191,7 @@ public class Controller {
             /*Determine the notes on the plant. This section may be long, so I
             created an approach that finds the first 3 spaces, and creates a new line if there is less than 3 spaces.
             This ensures better separation for each plant, and prevents a line from being cut out.*/
-            int spaceFinding = 0;
-            // Determine when the counter == 4, then we have arrived at the beginning of the notes section
-            if(counter == 4) {
+            if(counter == 4) { // Determine when the counter == 4, then we have arrived at the beginning of the notes section
                 // Determine the length of the line, and add 1 each time a space is found
                 for (int i = 0; i < line.length(); i++) {
                     if (line.substring(i, i + 1).equals(" ")) {
@@ -207,10 +205,15 @@ public class Controller {
                             break;
                         }
                         // if there are not 3 spaces yet, then write to the first line
-                        else{
+                        else {
                             // Else, we set only one label. -1 because we do not want to include the comma
-                            notesShow.setText(line.substring(0,line.length()-1));
+                            notesShow.setText(line.substring(0, line.length() - 1));
                         }
+                    }
+                    //Happens only if there are no spaces at all in the notes
+                    else{
+                        // Else, we set only one label. -1 because we do not want to include the commanotesShow.setText(line.substring(0, line.length() - 1));
+                        notesShow.setText(line.substring(0, line.length() - 1));
                     }
                 }
             }
@@ -233,6 +236,7 @@ public class Controller {
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
+        int spaceFinding = 0;
         // Read through each line in the file
         while ((line = br.readLine()) != null) {
             // Add one to the counter to determine which line we are at
@@ -251,27 +255,31 @@ public class Controller {
                 harvestDateShow.setText(insert);
             }
             /*Determine the notes on the plant. This section may be long, so I
-            Created an approach that finds the first 3 spaces, and creates a new line if there is less than 3 spaces.
-            This ensures better separation for each plant */
-            int spaceFinding = 0;
-            // If the counter equals 4, then this is the beginning of the notes line.
-            if(counter == 4) {
-                // Determine the length of the line, and add 1 each time a space is found. Also add one after each iteration
+            created an approach that finds the first 3 spaces, and creates a new line if there is less than 3 spaces.
+            This ensures better separation for each plant, and prevents a line from being cut out.*/
+            if(counter == 4) { // Determine when the counter == 4, then we have arrived at the beginning of the notes section
+                // Determine the length of the line, and add 1 each time a space is found
                 for (int i = 0; i < line.length(); i++) {
-                    if(line.substring(i,i+1).equals(" ")){
-                        spaceFinding ++;
+                    if (line.substring(i, i + 1).equals(" ")) {
+                        spaceFinding++;
                         // If space finding == 3, then the notes will probably not be able to fit on one line, so we go to the next line.
-                        if(spaceFinding == 3){
+                        if (spaceFinding == 3) {
                             // Determine when there are 3 spaces. Then, set the label to the beginning of the line to i
-                            notesShowHarvest.setText(line.substring(0,i));
-                            // The next label would be set with i to the length - 1 for the comma.
-                            notesShowHarvestExtra.setText(line.substring(i, line.length()-1));
+                            notesShowHarvest.setText(line.substring(0, i));
+                            // The next label would be set from i to the length - 1 for the comma
+                            notesShowHarvestExtra.setText(line.substring(i, line.length() - 1));
                             break;
                         }
-                        else{
+                        // if there are not 3 spaces yet, then write to the first line
+                        else {
                             // Else, we set only one label. -1 because we do not want to include the comma
-                            notesShowHarvest.setText(line.substring(0,line.length()-1));
+                            notesShowHarvest.setText(line.substring(0, line.length() - 1));
                         }
+                    }
+                    // Happens only if there are no spaces at all in the notes
+                    else{
+                        //Else, we set only one label. -1 because we do not want to include the comma
+                        notesShowHarvest.setText(line.substring(0, line.length() - 1));
                     }
                 }
             }
@@ -346,6 +354,8 @@ public class Controller {
     //Effects: Plays the video and audio.
     public void playVideo(MouseEvent mouseEvent) {
         System.out.println("Playing demonstration video");
+        // Set the colour to red
+        howToUseLabel.setTextFill(Color.web("#357435"));
         howToUseLabel.setText("Video has opened in another stage");
         //Instantiate new video when user presses playVideo button
         Video.playVideo();
@@ -353,19 +363,26 @@ public class Controller {
     //Requires: Nothing
     //Modifies: Nothing
     //Effects: Inserts the predefined plants for easy usage
-    public void quickCreate(MouseEvent mouseEvent) throws IOException{
+    public void quickCreate(MouseEvent mouseEvent) throws IOException, InterruptedException {
         System.out.println("Quick Create Running");
-        // Clear the creation fields for the next plant creation
-        clearCreate();
+
         // Get the name of the selected
         String name = quickCreateListView.getSelectionModel().getSelectedItem().toString();
+
         // Determine if this plant is already in either the harvest or grow lists by running the compareLists method
         if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
+            // Clear the creation fields for a new plant creation
             System.out.println("Plant already in a list");
             // Tell the user that the plant is already in a list
             createPlantLabel.setText("Plant already in a list");
         }
+        // Prevent user from selecting the plant twice in a row. Found that there are weird errors if the dates are the same. 
+        else if(name.equals(plantName.getText())){
+            createPlantLabel.setText("Already Selected Plant");
+        }
         else{
+            // Clear the creation fields for the next plant creation
+            clearCreate();
             // Else, this creation should be valid, and we can clear the label by setting it to a space
             createPlantLabel.setText("");
             // Create a fileReader that reads the plant from veggie and fruit possibilities folder
@@ -425,7 +442,6 @@ public class Controller {
         clearGrow();
         // Run the remove alert method, making sure to only write growDelete as true
         removeAlert(plantName, true, false);
-
     }
     //Requires: use of the RemovePlant class
     //Modifies: File harvestList and File tempFile
@@ -452,7 +468,11 @@ public class Controller {
         removeAlert(plantName, true, true);
         // Delete the file from the project/from file
         File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
-        System.out.println(newFile.delete());
+        if(newFile.delete()){
+            System.out.println("removed file: " + plantName);
+        }else{
+            System.out.println("ERROR NOT REMOVED");
+        }
         // Remove the plant from the growList
         RemovePlant.removePlant("growList.txt", plantName);
 
@@ -478,7 +498,11 @@ public class Controller {
         removeAlert(plantName, true, true);
         // Delete the file from the project/from file
         File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
-        System.out.println(newFile.delete());
+        if(newFile.delete()) {
+            System.out.println("removed file: " + plantName);
+        }else{
+            System.out.println("ERROR NOT REMOVED");
+        }
         // Remove the plant from the harvestList
         RemovePlant.removePlant("harvestList.txt", plantName);
 
@@ -527,5 +551,6 @@ public class Controller {
                 }
             }
         }
+        br.close();
     }
 }

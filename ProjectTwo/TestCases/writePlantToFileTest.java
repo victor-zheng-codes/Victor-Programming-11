@@ -25,7 +25,7 @@ public class writePlantToFileTest {
         InitiatePlant newPlantOne = new InitiatePlant("name", "07-29-2020", "09-21-2020", "Needs watering");
         newPlantOne.writeToFile("test.txt", false);
 
-        //Check that array list size is increased file
+        //Check that array list size has increased
         testing.add(newPlantOne);
         assertEquals(1, testing.size());
 

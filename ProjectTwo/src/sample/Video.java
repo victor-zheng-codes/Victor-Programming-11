@@ -18,7 +18,7 @@ public class Video {
         // Create a new stage to play video on
         Stage newStage = new Stage();
         // Create the media source.
-        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\Garden_Video3.mp4");
+        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\GardenVideoTemp.mp4");
         Media m = new Media(f.toURI().toString());
 
         // Create the player and set to play automatically.
