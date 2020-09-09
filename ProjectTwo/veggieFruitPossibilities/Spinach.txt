@@ -1,5 +1,0 @@
-Spinach,
-2020-03-01,
-2020-03-21,
-Plant every 3 weeks, will bolt,
-;

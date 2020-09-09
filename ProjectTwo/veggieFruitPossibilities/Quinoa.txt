@@ -1,5 +1,0 @@
-Quinoa,
-2020-05-20,
-2020-07-01,
-Night temperatures cool,
-;

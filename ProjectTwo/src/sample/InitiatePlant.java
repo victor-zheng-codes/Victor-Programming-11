@@ -22,7 +22,7 @@ public class InitiatePlant {
         System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to growList");
         // Initialize a fileWriter to the growList.txt file. Make sure to append
-        FileWriter fw = new FileWriter("growList.txt", true);
+        FileWriter fw = new FileWriter("src\\sample\\growList.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         // Write the name of the new plant to the file
         bw.write(name + "\r");
@@ -32,7 +32,7 @@ public class InitiatePlant {
         System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to harvestList");
         // Initialize a fileWriter to the growList.txt file. Making sure to append
-        FileWriter fw = new FileWriter("harvestList.txt", true);
+        FileWriter fw = new FileWriter("src\\sample\\harvestList.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         // Write the name of the new plant to the file
         bw.write(name + "\r");
@@ -44,7 +44,7 @@ public class InitiatePlant {
     public void writeToFile(String fileName, Boolean append) throws IOException {
         System.out.println("writing to this file: " + fileName);
         // Write to the fileName, and determine if we need to append to file
-        FileWriter fileWrite = new FileWriter(fileName, append);
+        FileWriter fileWrite = new FileWriter("src\\sample\\Plants\\" + fileName, append);
         BufferedWriter bufferWrite = new BufferedWriter(fileWrite);
         // Write the name, start date, harvest date, and notes. Add a comma and create a new line after each line.
         bufferWrite.write(name + ",\r");

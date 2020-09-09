@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class writePlantToFileTest {
     @Before
     public void setup(){
-
     }
     @Test
 
@@ -30,7 +29,7 @@ public class writePlantToFileTest {
         assertEquals(1, testing.size());
 
         //Check that plant is inserted into file
-        FileReader fr = new FileReader("test.txt");
+        FileReader fr = new FileReader("src\\sample\\OtherFiles\\test.txt");
         BufferedReader br = new BufferedReader(fr);
 
         //Read each line, easiest way to test would be count the amount of lines

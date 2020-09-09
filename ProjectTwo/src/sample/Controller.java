@@ -1,9 +1,7 @@
 package sample;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -83,7 +81,7 @@ public class Controller {
         String name = plantName.getText();
         //Determine if the new plant is already in either list
         //If true, then display the label telling user that there is a duplicate
-        if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
+        if(compareLists(name,"src\\sample\\harvestList.txt") || compareLists(name, "src\\sample\\growList.txt")){
             System.out.println("Plant already in a list");
             createPlantLabel.setText("Plant already in a list");
             //Use Color library to find a green colour for the label
@@ -122,7 +120,7 @@ public class Controller {
             // Write this new plant to file
             System.out.println("writing this: " + locateName);
             // First, write to a new file named after the plant with the name, grow date, harvest date, and notes.
-            newPlant.writeToFile("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + newPlant + ".txt", false);
+            newPlant.writeToFile(newPlant + ".txt", false);
             // Second, write the new plant to the grow list
             newPlant.writeToGrowList();
             // Thirdly, write the new plant to the harvest list
@@ -139,7 +137,6 @@ public class Controller {
         FileReader fr = new FileReader(fileName);
         BufferedReader br = new BufferedReader(fr);
         String line;
-
         while((line = br.readLine()) != null) {
             // Determine if any line is a duplicate, then return true.
             if(line.equals(newListName)){
@@ -165,7 +162,7 @@ public class Controller {
         // Get the name of the selected item
         String selected = growScheduleList.getSelectionModel().getSelectedItem();
         // Start a fileReader for the selected file
-        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + selected + ".txt");
+        FileReader fr = new FileReader("src\\sample\\Plants\\" + selected + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
@@ -232,7 +229,7 @@ public class Controller {
         // Determine the name of the selected line in the ListView
         String selected = harvestScheduleList.getSelectionModel().getSelectedItem();
         // Start a file reader for the selected text
-        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ selected + ".txt");
+        FileReader fr = new FileReader("src\\sample\\Plants\\" + selected + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;
@@ -301,7 +298,7 @@ public class Controller {
         /* --------------- FOR LOADING GROW LIST --------------------- */
         //Read the grow list and update the schedule and alerts
         System.out.println("updating new load");
-        FileReader fr = new FileReader("growList.txt");
+        FileReader fr = new FileReader("src\\sample\\growList.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         // Read through each line in the growList.txt
@@ -314,7 +311,7 @@ public class Controller {
             I know that I should probably use fileReader because we had learned about it in class.
             But I felt that this was an interesting method of doing a similar thing
              */
-            String growDate = Files.readAllLines(Paths.get("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ line + ".txt")).get(1);
+            String growDate = Files.readAllLines(Paths.get("src\\sample\\Plants\\"+ line + ".txt")).get(1);
             //Display only the name, with 2 dashes, and the date. Date is found with the length - the comma at the end
             growAlerts.getItems().add(line + " -- " + growDate.substring(0, growDate.length()-1));
         }
@@ -322,7 +319,7 @@ public class Controller {
 
         /* --------------- FOR LOADING HARVEST LIST --------------------- */
         //Read the harvest list and update the schedule and alerts
-        FileReader harvestfr = new FileReader("harvestList.txt");
+        FileReader harvestfr = new FileReader("src\\sample\\harvestList.txt");
         BufferedReader harvestbr = new BufferedReader(harvestfr);
         String harvestLine;
         while ((harvestLine = harvestbr.readLine()) != null) {
@@ -333,14 +330,14 @@ public class Controller {
             I know that I should probably use fileReader because we had learned about it in class.
             But I felt that this was an interesting method of doing a similar thing
              */
-            String harvestDate = Files.readAllLines(Paths.get("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\"+ harvestLine + ".txt")).get(2);
+            String harvestDate = Files.readAllLines(Paths.get("src\\sample\\Plants\\"+ harvestLine + ".txt")).get(2);
             //Display only the name, with 2 dashes, and the date. Date is found with the length - the comma at the end
             harvestAlerts.getItems().add(harvestLine + " -- " + harvestDate.substring(0, harvestDate.length()-1));
         }
         harvestbr.close();
 
         /* --------------- FOR LOADING POSSIBILITIES FOR QUICK CREATE --------------------- */
-        FileReader possibilitiesFr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\possibilitiesList.txt");
+        FileReader possibilitiesFr = new FileReader("src\\sample\\OtherFiles\\possibilitiesList.txt");
         BufferedReader possibilitiesBr = new BufferedReader(possibilitiesFr);
         String possibilities;
         while ((possibilities = possibilitiesBr.readLine()) != null) {
@@ -351,14 +348,17 @@ public class Controller {
     }
     //Requires: Use of the Video class
     //Modifies: Nothing
-    //Effects: Plays the video and audio.
-    public void playVideo(MouseEvent mouseEvent) {
+    //Effects: Plays the demonstration video and audio.
+    public void playDemonstrationVideo(MouseEvent mouseEvent) {
         System.out.println("Playing demonstration video");
-        // Set the colour to red
-        howToUseLabel.setTextFill(Color.web("#357435"));
-        howToUseLabel.setText("Video has opened in another stage");
-        //Instantiate new video when user presses playVideo button
-        Video.playVideo();
+        Video.playDemonstrationVideo();
+    }
+    //Requires: Use of the Video class
+    //Modifies: Nothing
+    //Effects: Plays the explanation video and audio.
+    public void playCodeExplanationVideo(MouseEvent mouseEvent) {
+        System.out.println("Playing Explanation video");
+        Video.playCodeExplanationVideo();
     }
     //Requires: Nothing
     //Modifies: Nothing
@@ -370,13 +370,13 @@ public class Controller {
         String name = quickCreateListView.getSelectionModel().getSelectedItem().toString();
 
         // Determine if this plant is already in either the harvest or grow lists by running the compareLists method
-        if(compareLists(name,"harvestList.txt") || compareLists(name, "growList.txt")){
+        if(compareLists(name,"src\\sample\\harvestList.txt") || compareLists(name, "src\\sample\\growList.txt")){
             // Clear the creation fields for a new plant creation
             System.out.println("Plant already in a list");
             // Tell the user that the plant is already in a list
             createPlantLabel.setText("Plant already in a list");
         }
-        // Prevent user from selecting the plant twice in a row. Found that there are weird errors if the dates are the same. 
+        // Prevent user from selecting the plant twice in a row. Found that there are weird errors if the dates are the same.
         else if(name.equals(plantName.getText())){
             createPlantLabel.setText("Already Selected Plant");
         }
@@ -386,7 +386,7 @@ public class Controller {
             // Else, this creation should be valid, and we can clear the label by setting it to a space
             createPlantLabel.setText("");
             // Create a fileReader that reads the plant from veggie and fruit possibilities folder
-            FileReader frTemp = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\veggieFruitPossibilities\\" + name + ".txt");
+            FileReader frTemp = new FileReader("src\\sample\\veggieFruitPossibilities\\" + name + ".txt");
             BufferedReader brTemp = new BufferedReader(frTemp);
             int counter = 0;
             String line;
@@ -437,7 +437,7 @@ public class Controller {
         String plantName = growScheduleList.getSelectionModel().getSelectedItem();
         growScheduleList.getItems().remove(plantName);
         // Remove plant by using class:
-        RemovePlant.removePlant("growList.txt", plantName);
+        RemovePlant.removePlant("src\\sample\\growList.txt", plantName);
         // Clear the grow labels
         clearGrow();
         // Run the remove alert method, making sure to only write growDelete as true
@@ -449,7 +449,7 @@ public class Controller {
     public void removePlantHarvest(MouseEvent mouseEvent) throws IOException{
         String plantName = harvestScheduleList.getSelectionModel().getSelectedItem();
         harvestScheduleList.getItems().remove(plantName);
-        RemovePlant.removePlant("harvestList.txt", plantName);
+        RemovePlant.removePlant("src\\sample\\harvestList.txt", plantName);
         // clear the harvest labels
         clearHarvest();
         // Run the remove alert method, making sure to only write harvestDelete as true
@@ -467,18 +467,19 @@ public class Controller {
         // run the remove alert method, making sure to delete both the grow and harvest alerts
         removeAlert(plantName, true, true);
         // Delete the file from the project/from file
-        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
+        File newFile = new File("src\\sample\\\\Plants\\", plantName + ".txt");
+
         if(newFile.delete()){
             System.out.println("removed file: " + plantName);
         }else{
             System.out.println("ERROR NOT REMOVED");
         }
         // Remove the plant from the growList
-        RemovePlant.removePlant("growList.txt", plantName);
+        RemovePlant.removePlant("src\\sample\\growList.txt", plantName);
 
         //Try to remove the name from the harvest list too, we do not know if it is there
         try {
-            RemovePlant.removePlant("harvestList.txt", plantName);
+            RemovePlant.removePlant("src\\sample\\harvestList.txt", plantName);
             System.out.println("Removed from harvestList.txt");
         } catch (Exception e) { // This will occur when the plant has already been removed from the harvestList
             System.out.println("Did not remove from harvestList.txt, likely already removed");
@@ -497,18 +498,18 @@ public class Controller {
         // run the remove alert method, making sure to delete both the grow and harvest alerts
         removeAlert(plantName, true, true);
         // Delete the file from the project/from file
-        File newFile = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\", plantName + ".txt");
+        File newFile = new File("src\\sample\\Plants\\", plantName + ".txt");
         if(newFile.delete()) {
             System.out.println("removed file: " + plantName);
         }else{
             System.out.println("ERROR NOT REMOVED");
         }
         // Remove the plant from the harvestList
-        RemovePlant.removePlant("harvestList.txt", plantName);
+        RemovePlant.removePlant("src\\sample\\harvestList.txt", plantName);
 
         //Try to remove the name from the grow list too, we do not know if it is there
         try {
-            RemovePlant.removePlant("growList.txt", plantName);
+            RemovePlant.removePlant("src\\sample\\OtherFiles\\growList.txt", plantName);
             System.out.println("Removed from growList.txt");
         }catch (Exception e){ // This will occur when the plant has already been removed from the growList
             System.out.println("Did not remove from growList.txt, likely already removed");
@@ -520,7 +521,7 @@ public class Controller {
     public void removeAlert(String plantName, Boolean growDelete, Boolean harvestDelete) throws IOException {
         System.out.println("Grow, Harvest remove: " + growDelete + harvestDelete);
         // Start a new fileReader for the plant that needs to be removed.
-        FileReader fr = new FileReader("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\" + plantName + ".txt");
+        FileReader fr = new FileReader("src\\sample\\Plants\\" + plantName + ".txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;

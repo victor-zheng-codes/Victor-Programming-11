@@ -9,7 +9,7 @@ public class copyTest {
     @Before
     public void setup(){
         //clear the file that we are reading by deleting it
-        File myFile = new File("copyFile.txt");
+        File myFile = new File("src\\sample\\OtherFiles\\copyFile.txt");
         // Delete this file by running an if statement. myFile.delete() returns a Boolean
         if (myFile.delete()) {
             System.out.println("Deleted the file: " + myFile.getName());
@@ -23,13 +23,13 @@ public class copyTest {
     @Test
     public void copyTesting() throws IOException {
         //Since the file should have been either deleted, or was not there in the first place, we can create a new file
-        File newFile = new File("copyFile.txt");
+        File newFile = new File("src\\sample\\OtherFiles\\copyFile.txt");
 
         // copy a file that has 3 people's names to a file named copyFile
-        CopyFile.copy("copyFile.txt", "testCopyFile.txt");
+        CopyFile.copy("src\\sample\\OtherFiles\\copyFile.txt", "src\\sample\\OtherFiles\\testCopyFile.txt");
 
         // read a pre created file that contains people.
-        FileReader fr = new FileReader("testCopyFile.txt");
+        FileReader fr = new FileReader("src\\sample\\OtherFiles\\testCopyFile.txt");
         BufferedReader br = new BufferedReader(fr);
         String line;
         int counter = 0;

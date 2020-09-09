@@ -1,0 +1,5 @@
+Rhubarb,
+2020-04-01,
+2021-07-01,
+Start indoors, do not eat leaves,
+;

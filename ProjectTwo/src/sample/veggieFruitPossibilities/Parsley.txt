@@ -1,0 +1,5 @@
+Parsley,
+2020-04-20,
+2020-07-01,
+Continuous harvest,
+;

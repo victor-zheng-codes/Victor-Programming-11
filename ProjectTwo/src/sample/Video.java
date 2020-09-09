@@ -13,12 +13,12 @@ public class Video {
 
     //Requires: nothing
     //Modifies: nothing
-    //Effects: Retrieves a video and opens it in a new stage
-    public static void playVideo() {
+    //Effects: Retrieves the demonstration video and opens it in a new stage
+    public static void playDemonstrationVideo() {
         // Create a new stage to play video on
         Stage newStage = new Stage();
         // Create the media source.
-        File f = new File("C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\src\\sample\\GardenVideoTemp.mp4");
+        File f = new File("src\\sample\\OtherFiles\\DemonstrationVideo.mp4");
         Media m = new Media(f.toURI().toString());
 
         // Create the player and set to play automatically.
@@ -31,12 +31,38 @@ public class Video {
         // Store the mediaView inside a vertical box
         VBox mediaArea = new VBox(mediaView);
         // Create a new scene for the VBox
-        Scene scene = new Scene(mediaArea, 640, 500);
+        Scene scene = new Scene(mediaArea, 850, 600);
         // Set the new scene with title and play the video
         newStage.setScene(scene);
         newStage.setTitle("Demonstration Video");
         newStage.show();
         mediaPlayer.play();
+    }
+    //Requires: nothing
+    //Modifies: nothing
+    //Effects: Retrieves the code explanation video and opens it in a new stage
+    public static void playCodeExplanationVideo() {
+        // Create a new stage to play video on
+        Stage newStage = new Stage();
+        // Create the media source.
+        File f = new File("src\\sample\\OtherFiles\\CodeExplanation.mp4");
+        Media m = new Media(f.toURI().toString());
 
+        // Create the player and set to play automatically.
+        MediaPlayer mediaPlayer = new MediaPlayer(m);
+        mediaPlayer.setAutoPlay(true);
+
+        // Create the view and add the media tp ot.
+        MediaView mediaView = new MediaView(mediaPlayer);
+
+        // Store the mediaView inside a vertical box
+        VBox mediaArea = new VBox(mediaView);
+        // Create a new scene for the VBox
+        Scene scene = new Scene(mediaArea, 1800, 900);
+        // Set the new scene with title and play the video
+        newStage.setScene(scene);
+        newStage.setTitle("Code Explanation Video");
+        newStage.show();
+        mediaPlayer.play();
     }
 }

@@ -3,7 +3,7 @@ Assignment: Project Two
 Started on: June 26, 2020
 Programed by: Victor Zheng
 Course: Computer Programming 11
-Project last edited on September 3, 2020
+Project last edited on September 8, 2020
  */
 
 package sample;
@@ -26,7 +26,6 @@ public class Main extends Application {
         primaryStage.setTitle("Garden Scheduler");
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

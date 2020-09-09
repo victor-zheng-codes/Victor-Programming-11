@@ -12,7 +12,7 @@ public class RemovePlant {
         // Store the input file as the fileName
         File inputFile = new File (inputFileName);
         // Store the tempFile as "tempFile.txt"
-        File tempFile = new File ("tempFile.txt");
+        File tempFile = new File ("src\\sample\\OtherFiles\\tempFile.txt");
         System.out.println("Removing this: " + plantName);
 
         //Write to a temporary file that we can copy back to later
@@ -41,7 +41,7 @@ public class RemovePlant {
         br.close();
         bufferWrite.close();
         // Run the class CopyFile to copy back the inputFile from the tempFile
-        CopyFile.copy(inputFileName, "tempFile.txt");
+        CopyFile.copy(inputFileName, "src\\sample\\OtherFiles\\tempFile.txt");
     }
 }
 

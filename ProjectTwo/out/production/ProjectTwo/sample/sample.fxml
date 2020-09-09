@@ -65,24 +65,31 @@
                      <effect>
                         <DropShadow color="#8fe590" />
                      </effect></Label>
-                  <Button fx:id="mediaView" layoutX="29.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#playVideo" prefHeight="56.0" prefWidth="131.0" text="Play Video">
+                  <Button fx:id="mediaView" layoutX="22.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#playDemonstrationVideo" prefHeight="56.0" prefWidth="218.0" text="Play Demonstration Video">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <effect>
                         <DropShadow color="#8fe590" height="29.94" radius="15.212499999999999" width="32.91" />
                      </effect></Button>
-                  <Label fx:id="howToUseLabel" layoutX="300.0" layoutY="60.0" />
-                   <ImageView fitHeight="288.0" fitWidth="313.0" layoutX="207.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+                   <ImageView fitHeight="204.0" fitWidth="275.0" layoutX="261.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
                        <image>
                            <Image url="@introPhoto.jpg" />
                        </image>
                    </ImageView>
-                  <Text layoutX="347.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?">
+                  <Text layoutX="381.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?">
                      <font>
                         <Font size="74.0" />
                      </font>
                   </Text>
+                  <Button fx:id="mediaView1" layoutX="240.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#playCodeExplanationVideo" prefHeight="56.0" prefWidth="218.0" text="Play Code Explanation Video">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#8fe590" height="29.94" radius="15.212499999999999" width="32.91" />
+                     </effect>
+                  </Button>
                </children></AnchorPane>
       </content>
     </Tab>

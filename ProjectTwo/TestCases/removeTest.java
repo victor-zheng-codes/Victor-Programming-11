@@ -20,7 +20,7 @@ public class removeTest {
     @Test
     public void removePlantTest() throws IOException {
         //check the current size of the plantsList
-        FileReader fr = new FileReader("removalTest.txt");
+        FileReader fr = new FileReader("src\\sample\\OtherFiles\\removalTest.txt");
         BufferedReader br = new BufferedReader(fr);
         int counter = 0;
         String line;
@@ -35,13 +35,13 @@ public class removeTest {
             }
         }
 
-        RemovePlant.removePlant("removalTest.txt", removalLine);
+        RemovePlant.removePlant("src\\sample\\OtherFiles\\removalTest.txt", removalLine);
 
         /* Rerun the FileReader to determine if the counter has decreased by 1
            This is to determine if one line has been removed and that the correct line has been removed
         */
         //check the current size of the plantsList
-        FileReader newfr = new FileReader("removalTest.txt");
+        FileReader newfr = new FileReader("src\\sample\\OtherFiles\\removalTest.txt");
         BufferedReader newbr = new BufferedReader(newfr);
         int newCounter = 0;
         String newLine;
@@ -59,6 +59,5 @@ public class removeTest {
         }
         // Check that the new counter is one line less than the old counter
         assertEquals(counter, (newCounter + 1));
-
     }
 }
