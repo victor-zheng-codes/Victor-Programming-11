@@ -22,7 +22,7 @@ I suspect it might be the fact that I am using an earlier version of Java JDK.
 You may also need to change the path for the files. As I created different folders for plant possibilities, and actual plants grown.
     For example,
     Currently, the file path for some files are listed as:
-    C:\\Users\\zheng\\IdeaProjects\\ProjectTwo\\Plants\\, you will probably need to change this to fit where you download this project.
+    src\\sample\\Plants\\, hence, there may be errors running the GUI. I would suggest simply running the program from Intellij.
 One part that took me a long time to develop, was the video button, I invested a few weeks on how to fully develop a
 button that would show a different stage. I made a different project to test, ran different methods, and finally got it to work.
 That feeling of accomplishing something that challenges me to adapt to failures, mistakes, and difficulties is what I
