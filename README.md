@@ -29,3 +29,7 @@ That feeling of accomplishing something that challenges me to adapt to failures,
 love about programming.
 
 I hope you enjoy this application. This course was great, I want to thank Mr. Zaremba for teaching this course, I learned a lot that I will definitely use going forward.
+
+
+Demonstration Video: https://drive.google.com/file/d/11FpKZ5EFPb9Pz0lm9VIs8ElKrpLJnqCV/view?usp=sharing
+Code Explanation Video: https://drive.google.com/file/d/1GL8Hfc1RqgqgvvSk3jCWUWH_koPBBA4E/view?usp=sharing
