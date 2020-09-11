@@ -6,11 +6,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-
 import java.io.File;
 
 public class Video {
-
     //Requires: nothing
     //Modifies: nothing
     //Effects: Retrieves the demonstration video and opens it in a new stage
@@ -18,14 +16,14 @@ public class Video {
         // Create a new stage to play video on
         Stage newStage = new Stage();
         // Create the media source.
-        File f = new File("src\\sample\\OtherFiles\\DemonstrationVideo.mp4");
+        File f = new File("OtherFiles\\DemonstrationVideo.mp4");
         Media m = new Media(f.toURI().toString());
 
         // Create the player and set to play automatically.
         MediaPlayer mediaPlayer = new MediaPlayer(m);
         mediaPlayer.setAutoPlay(true);
 
-        // Create the view and add the media tp ot.
+        // Create a media view and add the media.
         MediaView mediaView = new MediaView(mediaPlayer);
 
         // Store the mediaView inside a vertical box
@@ -45,14 +43,14 @@ public class Video {
         // Create a new stage to play video on
         Stage newStage = new Stage();
         // Create the media source.
-        File f = new File("src\\sample\\OtherFiles\\CodeExplanation.mp4");
+        File f = new File("OtherFiles\\CodeExplanation.mp4");
         Media m = new Media(f.toURI().toString());
 
         // Create the player and set to play automatically.
         MediaPlayer mediaPlayer = new MediaPlayer(m);
         mediaPlayer.setAutoPlay(true);
 
-        // Create the view and add the media tp ot.
+        // Create a media view and add the media.
         MediaView mediaView = new MediaView(mediaPlayer);
 
         // Store the mediaView inside a vertical box
