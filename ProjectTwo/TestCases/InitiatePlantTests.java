@@ -119,7 +119,7 @@ public class InitiatePlantTests {
         // Remove file from harvestList
         RemovePlant.removePlant("harvestList.txt", "TestPlant");
         // Remove file from file. This should work as long as the plants are removed from the grow and harvestLists
-        if(RemovePlant.removePermanentlyCheck("TestPlant")){
+        if(RemovePlant.removePermanentlyCheck("TestPlant")){ // This for some reason doesn't work. Doesn't affect program though.
             System.out.println("Removed Plant after running initiate plant tests");
         }
     }

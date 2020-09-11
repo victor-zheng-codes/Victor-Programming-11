@@ -4,7 +4,7 @@ import java.io.*;
 public class CopyFile {
 
     //Requires: nothing
-    //Modifies: File input file and File tempFile. With path names
+    //Modifies: File input file and File tempFile.
     //Effects: reads tempFile.txt and copies it to the inputFile.txt.
     public static void copy(String copiedTo, String copiedFrom) throws IOException {
         // This is the file that needs to be written/copied to.

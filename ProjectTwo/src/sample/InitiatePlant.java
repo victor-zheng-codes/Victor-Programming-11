@@ -17,7 +17,7 @@ public class InitiatePlant {
     }
     //Requires: String fileName
     //Modifies: nothing
-    //Effects: Adds a new list name into the plantsList
+    //Effects: Adds a new list name into the growList
     public void writeToGrowList() throws IOException{
         System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to growList");
@@ -28,10 +28,13 @@ public class InitiatePlant {
         bw.write(name + "\r");
         bw.close();
     }
+    //Requires: String fileName
+    //Modifies: nothing
+    //Effects: Adds a new list name into the harvestList
     public void writeToHarvestList() throws IOException{
         System.out.println("grow date length is: " + startDate.length());
         System.out.println("writing: " + name + " to harvestList");
-        // Initialize a fileWriter to the growList.txt file. Making sure to append
+        // Initialize a fileWriter to the harvestList.txt file. Making sure to append
         FileWriter fw = new FileWriter("harvestList.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         // Write the name of the new plant to the file

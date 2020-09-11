@@ -20,18 +20,19 @@ As for the programming,
 I have used Junit 4.12 because the Junit 5.0 Snapshot did not work for some reason.
 I suspect it might be the fact that I am using an earlier version of Java JDK.
     
-There may be errors running the GUI from the command prompt. I would suggest simply running the program from Intellij.
+There may be errors running the GUI from the command prompt. I would suggest simply running the program from IntelliJ.
 This is because the data persistence does not work when running only the .jar file. 
 
 One part that took me a long time to develop, was the video button, I invested a few weeks on how to fully develop a
 button that would show a different stage. I made a different project to test, ran different methods, and finally got it to work.
+You can view these videos either from the GUI or listed below. 
 That feeling of accomplishing something that challenges me to adapt to failures, mistakes, and difficulties is what I
 love about programming.
 
 I hope you enjoy this application. This course was great, I want to thank Mr. Zaremba for teaching this course, I learned a lot that I will definitely use going forward.
 
-
 Demonstration Video: https://drive.google.com/file/d/11FpKZ5EFPb9Pz0lm9VIs8ElKrpLJnqCV/view?usp=sharing
 
 Code Explanation Video: https://drive.google.com/file/d/1GL8Hfc1RqgqgvvSk3jCWUWH_koPBBA4E/view?usp=sharing
 (This video may be a bit outdated as I have cleaned up some of the files seen in the video)
+ 
