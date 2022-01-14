@@ -45,6 +45,6 @@ I hope you enjoy this application. This course was great, I want to thank Mr. Za
 
 [Demonstration Video:](https://drive.google.com/file/d/11FpKZ5EFPb9Pz0lm9VIs8ElKrpLJnqCV/view?usp=sharing)
 
-[Code Explanation Video:](https://drive.google.com/file/d/1GL8Hfc1RqgqgvvSk3jCWUWH_koPBBA4E/view?usp=sharing)
+[Code Explanation Video:](https://youtu.be/e6VORSFg5tI)
 (This video may be a bit outdated as I have cleaned up some of the files seen in the video)
  
